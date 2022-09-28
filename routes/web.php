@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', function () {
+    View()->share( 'headTitle', $this->headTitle = 'Dashboard');
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(function () {
+  
+});
 
 require __DIR__.'/auth.php';
