@@ -70,17 +70,17 @@
                             </svg><!--end::Svg Icon--></span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Area/Mall</span>
+                        <span class="menu-title">Rental Company</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                   
                         <div class="menu-item">
-                            <a class="menu-link" href="#">
+                            <a class="menu-link" href="{{route('app.rentalcompany.index')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Add New Area/Mall</span>
+                                <span class="menu-title">Create New Company</span>
                             </a>
                         </div>
                         
