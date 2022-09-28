@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RentalCompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(function () {
-  
+    Route::resource('rentalcompany', RentalCompanyController::class);
 });
 
 require __DIR__.'/auth.php';
