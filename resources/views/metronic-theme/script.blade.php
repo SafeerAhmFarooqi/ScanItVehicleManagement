@@ -13,6 +13,7 @@
     
 @show
 @yield('pageScripts')
+
 @livewireScripts
 @stack('scriptsWithLivewire')
 

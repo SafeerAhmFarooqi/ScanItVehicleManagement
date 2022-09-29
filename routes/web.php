@@ -6,6 +6,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\RentAgreementController;
+use App\Http\Controllers\DriverAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(f
     Route::resource('company', CompanyController::class);
     Route::resource('driver', DriverController::class);
     Route::resource('rentagreement', RentAgreementController::class);
+    Route::resource('driverattendance', DriverAttendanceController::class);
+    
 });
 
 require __DIR__.'/auth.php';
