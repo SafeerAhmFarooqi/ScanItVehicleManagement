@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RentalCompanyController;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DriverController;
+use App\Http\Controllers\RentAgreementController;
+use App\Http\Controllers\DriverAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +30,12 @@ Route::get('/dashboard', function () {
 
 Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(function () {
     Route::resource('rentalcompany', RentalCompanyController::class);
+    Route::resource('vehicle', VehicleController::class);
+    Route::resource('company', CompanyController::class);
+    Route::resource('driver', DriverController::class);
+    Route::resource('rentagreement', RentAgreementController::class);
+    Route::resource('driverattendance', DriverAttendanceController::class);
+    
 });
 
 require __DIR__.'/auth.php';
