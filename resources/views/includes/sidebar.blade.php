@@ -228,6 +228,14 @@
                                 <span class="menu-title">Create Driver Attendance</span>
                             </a>
                         </div> 
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('app.driverattendance.show',[1])}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Driver Attendance Report</span>
+                            </a>
+                        </div> 
                     </div>
                 </div>
                 

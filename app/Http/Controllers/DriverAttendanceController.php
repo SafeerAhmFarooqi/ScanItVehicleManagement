@@ -45,7 +45,28 @@ class DriverAttendanceController extends AdminController
      */
     public function show($id)
     {
-        //
+        switch ($id) {
+            case "1":
+              return view('driver-attendance-report-page');
+              break;
+            case "2":
+                return view('user-management-roles-permission-page',[
+
+                ]);
+                break;
+            case "3":
+
+                    return view('user-management-employees-permission-page',[
+ 
+                    ]);
+                    break;
+                    case "4":
+
+                        return view('expense-report-page');
+                        break;
+            default:
+              return back();
+          }
     }
 
     /**

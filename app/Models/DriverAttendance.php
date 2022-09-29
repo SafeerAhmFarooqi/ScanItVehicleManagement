@@ -14,4 +14,14 @@ class DriverAttendance extends Model
     protected $dates = ['deleted_at','attendancedate','intime','outtime'];
 
     protected $fillable = ['rentalcompany_id', 'driver_id','attendancedate','intime','outtime','deleted_at'];
+
+    public function rentalCompany()
+    {
+        return $this->belongsTo(RentalCompany::class, 'rentalcompany_id');
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class, 'driver_id');
+    }
 }
