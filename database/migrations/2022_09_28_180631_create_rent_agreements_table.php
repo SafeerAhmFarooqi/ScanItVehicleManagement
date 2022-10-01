@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('rate')->nullable();
             $table->string('amount')->nullable();
             $table->boolean('paid')->nullable();
+            $table->timestamp('date')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

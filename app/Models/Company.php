@@ -15,5 +15,8 @@ class Company extends Model
 
     protected $fillable = [ 'name','address','phone','deleted_at'];
 
-  
+    public function rentalagreements()
+    {
+        return $this->hasMany(RentAgreement::class, 'company_id');
+    }
 }

@@ -56,6 +56,7 @@ class RentAgreementController extends AdminController
                         'rate' => $value['rate']??0,
                         'quantity' => $value['quantity']??0,
                         'amount' => ($value['rate']??0)*($value['quantity']??0),
+                        'date' => $value['date'],
                     ]);
                 }    
             }
