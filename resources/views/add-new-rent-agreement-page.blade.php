@@ -160,6 +160,18 @@
                                   </select>
                                   </div>
                                   <div class="col-md-2">
+                                    <label class="form-label">Company</label>
+                                    {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
+                                    
+                                    <select class="form-control mb-2 mb-md-0" placeholder="Company" id="sel1" name="company">
+                                      <option value="" disabled selected>Company</option>
+                                      @foreach ($companies as $company)
+                                        <option value="{{$company->id}}">{{$company->name}}</option>      
+                                        @endforeach
+                                       
+                                  </select>
+                                  </div>
+                                  <div class="col-md-2">
                                     <label class="form-label">Vehicle</label>
                                     {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
                                     

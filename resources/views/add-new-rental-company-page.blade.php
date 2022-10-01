@@ -12,7 +12,7 @@
                 <b>
                 
                
-                        Shop Management - Add new Rental Company
+                        Vehicle Management - Add new Rental Company
               
        
                 </b>
@@ -88,6 +88,21 @@
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                         <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Enter Company Name" name="company" value="{{old('company')}}"/>
                                         @error('company')
+                                        <span class="alert alert-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div><!--end::Col-->
+                                </div>
+
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                     <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Initial Balance</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                                     <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input class="form-control form-control-lg form-control-solid" type="number" placeholder="Initial Balance" min="0" name="initialbalance" value="{{old('initialbalance')}}"/>
+                                        @error('initialbalance')
                                         <span class="alert alert-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

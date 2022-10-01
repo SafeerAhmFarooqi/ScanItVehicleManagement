@@ -7,6 +7,7 @@ use App\Models\RentalCompany;
 use App\Models\Vehicle;
 use App\Models\Driver;
 use App\Models\RentAgreement;
+use App\Models\Company;
 
 class RentAgreementController extends AdminController
 {
@@ -21,6 +22,7 @@ class RentAgreementController extends AdminController
             'rentalCompanies' => RentalCompany::all(),
             'vehicles' => Vehicle::all(),
             'drivers' => Driver::all(),
+            'companies' => Company::all(),
         ]);
     }
 
@@ -47,6 +49,7 @@ class RentAgreementController extends AdminController
                 if ($value['rentalcompany']??false&&$value['vehicle']??false&&$value['driver']??false&&$value['duration']??false&&$value['quantity']??false&&$value['rate']??false&&$value['amount']??false) {
                     RentAgreement::create([
                         'rentalcompany_id' => $value['rentalcompany'],
+                        'company_id' => $value['company'],
                         'vehicle_id' =>  $value['vehicle']??'',
                         'driver_id' => $value['driver'],
                         'duration' => $value['duration'],

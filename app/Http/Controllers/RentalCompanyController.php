@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\RentalCompany;
+use App\Models\CompanyCurrentAccount;
+use App\Models\CompanyTransactionRecord;
 
 class RentalCompanyController extends AdminController
 {
@@ -39,6 +41,8 @@ class RentalCompanyController extends AdminController
         $request->validate([
             //Validation Rules
             'company' => ['required', 'string', 'max:100'],
+            'initialbalance' => ['required', 'numeric'],
+            
           
         ],[
             //Validation Messages
@@ -46,11 +50,26 @@ class RentalCompanyController extends AdminController
         ],[
             //Validation Attributes
             'company' =>'Company',
+            'initialbalance' => 'Initial Balance',
         ]);
 
         $company=RentalCompany::create([
             'name'=>$request->company,
         ]);
+
+        CompanyCurrentAccount::create([
+            'rentalcompany_id' => $company->id,
+            'currentbalance' => $request->initialbalance,
+
+        ]);
+
+        CompanyTransactionRecord::create([
+            'rentalcompany_id' => $company->id,
+            'credit' => true,
+            'amount' => $request->initialbalance,
+            'detail' => 'Initial Balance',
+        ]);
+
 
         if($company)
         {
