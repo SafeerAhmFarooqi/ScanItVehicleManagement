@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class DriverSalaryRecord extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','month','givendate'];
 
-    protected $fillable = [ 'name','address','phone','deleted_at'];
-
-  
+    protected $fillable = ['rentalcompany_id', 'driver_id','amount','month','givendate','deleted_at'];
 }

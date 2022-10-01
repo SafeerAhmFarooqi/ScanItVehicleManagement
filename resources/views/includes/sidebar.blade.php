@@ -170,6 +170,14 @@
                                 <span class="menu-title">Add new Driver</span>
                             </a>
                         </div> 
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('app.driver.show',[1])}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Driver Setting's</span>
+                            </a>
+                        </div> 
                     </div>
                 </div>
 
