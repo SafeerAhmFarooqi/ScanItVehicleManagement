@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\RentalCompany;
-use App\Models\CompanyCurrentAccount;
-use App\Models\CompanyTransactionRecord;
-
-class RentalCompanyController extends AdminController
+class AccountController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +13,7 @@ class RentalCompanyController extends AdminController
      */
     public function index()
     {
-        return view('add-new-rental-company-page');
+        //
     }
 
     /**
@@ -38,47 +34,7 @@ class RentalCompanyController extends AdminController
      */
     public function store(Request $request)
     {
-        $request->validate([
-            //Validation Rules
-            'company' => ['required', 'string', 'max:100'],
-            'initialbalance' => ['required', 'numeric'],
-            
-          
-        ],[
-            //Validation Messages
-            'required'=>':attribute Is Required',
-        ],[
-            //Validation Attributes
-            'company' =>'Company',
-            'initialbalance' => 'Initial Balance',
-        ]);
-
-        $company=RentalCompany::create([
-            'name'=>$request->company,
-        ]);
-
-        CompanyCurrentAccount::create([
-            'rentalcompany_id' => $company->id,
-            'currentbalance' => $request->initialbalance,
-
-        ]);
-
-        CompanyTransactionRecord::create([
-            'rentalcompany_id' => $company->id,
-            'credit' => true,
-            'amount' => $request->initialbalance,
-            'detail' => 'Initial Balance',
-        ]);
-
-
-        if($company)
-        {
-            return back()->with('success', 'New Company Created Successfully' );
-        }
-        else
-        {
-            return back()->with('error', 'Unable to create new Company' );
-        }
+        //
     }
 
     /**
@@ -89,7 +45,28 @@ class RentalCompanyController extends AdminController
      */
     public function show($id)
     {
-        //
+        switch ($id) {
+            case "1":
+              return view('driver-attendance-report-page');
+              break;
+            case "2":
+                return view('user-management-roles-permission-page',[
+
+                ]);
+                break;
+            case "3":
+
+                    return view('pay-agreement-amount-page',[
+ 
+                    ]);
+                    break;
+                    case "4":
+
+                        return view('expense-report-page');
+                        break;
+            default:
+              return back();
+          }
     }
 
     /**

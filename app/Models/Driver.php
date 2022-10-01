@@ -14,4 +14,9 @@ class Driver extends Model
     protected $dates = ['deleted_at','startTime','endTime'];
 
     protected $fillable = ['rentalcompany_id', 'name','address','phone','license','salary','startTime','endTime','deleted_at'];
+
+    public function advancePayment()
+    {
+        return $this->hasOne(DriverAdvancePayment::class, 'driver_id');
+    }
 }

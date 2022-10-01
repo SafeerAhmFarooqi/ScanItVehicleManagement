@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\RentAgreementController;
 use App\Http\Controllers\DriverAttendanceController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(f
     Route::resource('driver', DriverController::class);
     Route::resource('rentagreement', RentAgreementController::class);
     Route::resource('driverattendance', DriverAttendanceController::class);
+    Route::resource('account', AccountController::class);
     
 });
 

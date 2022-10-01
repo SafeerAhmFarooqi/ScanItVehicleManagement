@@ -160,6 +160,24 @@
                                   </select>
                                   </div>
                                   <div class="col-md-2">
+                                    <label class="form-label">Company</label>
+                                    {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
+                                    
+                                    <select class="form-control mb-2 mb-md-0" placeholder="Company" id="sel1" name="company">
+                                      <option value="" disabled selected>Company</option>
+                                      @foreach ($companies as $company)
+                                        <option value="{{$company->id}}">{{$company->name}}</option>      
+                                        @endforeach
+                                       
+                                  </select>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <label class="form-label">Date</label>
+                                    {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
+                                    <input type="date" class="form-control mb-2 mb-md-0" placeholder="Date" name="date"/>
+                                  
+                                  </div>
+                                  <div class="col-md-2">
                                     <label class="form-label">Vehicle</label>
                                     {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
                                     
@@ -289,7 +307,7 @@
 {{-- <script src="{{asset('assets/Metronic-Theme/js/custom/documentation/forms/formrepeater/basic.js')}}"></script> --}}
 <script>
   "use strict";
-  var inputOrder=4;
+  var inputOrder=5;
   var KTFormRepeaterBasic={
     init:function(){
       $("#kt_docs_repeater_basic").repeater({initEmpty:!1,defaultValues:{"text-input":"foo"},
@@ -310,7 +328,7 @@
 //alert('safeer');
 $('input').on('input', function(e){
         //alert($('input').eq(2).val());
-        $('input').eq(4).val($('input').eq(2).val()*$('input').eq(3).val());
+        $('input').eq(5).val($('input').eq(3).val()*$('input').eq(4).val());
     });
 }));
   

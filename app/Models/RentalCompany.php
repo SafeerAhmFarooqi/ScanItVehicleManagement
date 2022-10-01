@@ -14,4 +14,14 @@ class RentalCompany extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [ 'name','deleted_at'];
+
+    public function rentalagreements()
+    {
+        return $this->hasMany(RentAgreement::class, 'rentalcompany_id');
+    }
+
+    public function currentAccount()
+    {
+        return $this->hasOne(CompanyCurrentAccount::class, 'rentalcompany_id');
+    }
 }
