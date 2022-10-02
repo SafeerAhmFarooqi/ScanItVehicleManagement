@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\RentalCompany;
 use App\Models\CompanyCurrentAccount;
 use App\Models\CompanyTransactionRecord;
+use App\Models\RentalCompanyInitialAmount;
 
 class RentalCompanyController extends AdminController
 {
@@ -68,6 +69,12 @@ class RentalCompanyController extends AdminController
             'credit' => true,
             'amount' => $request->initialbalance,
             'detail' => 'Initial Balance',
+        ]);
+
+        RentalCompanyInitialAmount::create([
+            'rentalcompany_id' => $company->id,
+            'initialbalance' => $request->initialbalance,
+
         ]);
 
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('company_current_accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('rentalcompany_id')->nullable();
-            $table->decimal('currentbalance')->nullable();
+            $table->decimal('currentbalance',65,2)->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

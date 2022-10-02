@@ -47,7 +47,7 @@ class AccountController extends AdminController
     {
         switch ($id) {
             case "1":
-              return view('driver-attendance-report-page');
+              return view('account-give-salary-page');
               break;
             case "2":
                 return view('user-management-roles-permission-page',[

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('rentalcompany_id')->nullable();
             $table->unsignedBigInteger('driver_id')->nullable();
-            $table->decimal('advancepayment')->nullable();
+            $table->decimal('advancepayment',65,2)->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

@@ -19,4 +19,9 @@ class Driver extends Model
     {
         return $this->hasOne(DriverAdvancePayment::class, 'driver_id');
     }
+
+    public function rentalCompany()
+    {
+        return $this->belongsTo(RentalCompany::class, 'rentalcompany_id');
+    }
 }
