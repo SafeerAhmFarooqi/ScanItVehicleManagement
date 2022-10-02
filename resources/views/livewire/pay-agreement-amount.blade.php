@@ -61,8 +61,10 @@
 
     @if ($rentAgreements)
     <div class="card mb-5 mb-xl-10">
+        @include('common.validation')
         <!--begin::Card header-->
         <div class="card-header">
+            
             <!--begin::Heading-->
          
             <!--end::Heading-->
@@ -120,7 +122,7 @@
                             @if (!$rentAgreement->paid)
                             <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_pay">Pay Now</a>                                
                             @else
-                            <a href="javascript:;" class="btn btn-primary">UnPay Now</a>                                
+                            <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_unpay">UnPay Now</a>                                
                             @endif
                         </td>
                     </tr>    
@@ -172,6 +174,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                     <a href="javascript:;" class="btn btn-primary" wire:click="payAgreementAmount({{$currentRentAgreement->id??''}})">Yes</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="kt_modal_unpay" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Date : {{$currentRentAgreement?$currentRentAgreement->date->format('F d,y') : ''}}	</h3>
+    
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1"></span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <p>Are you sure you want to Debit {{$currentRentAgreement->amount??''}} from Company Current Account </p>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a href="javascript:;" class="btn btn-primary" wire:click="unpayAgreementAmount({{$currentRentAgreement->id??''}})">Yes</a>
                 </div>
                 
             </div>

@@ -36,11 +36,31 @@ class PayAgreementAmount extends Component
             'rentalcompany_id' => $this->currentRentalCompany->id,
             'credit' => true,
             'amount' => $this->currentRentAgreement->amount,
-            'detail' => 'Rent Agreement Amount',
+            'detail' => 'Rent Agreement Amount Credited',
         ]);
         $this->currentRentAgreement='';
         $this->dispatchBrowserEvent('hideModel');
-        Session::flash('success', __('Agreement Amount Paid Successfully'));
+        Session::flash('success', __('Agreement Amount Credited Successfully'));
+    }
+
+    public function unpayAgreementAmount($id)
+    {
+        $this->currentRentAgreement=RentAgreement::find($id);
+        $this->currentRentAgreement->update([
+            'paid' => false,
+        ]);
+        $this->currentRentalCompany->currentAccount->update([
+            'currentbalance' => $this->currentRentalCompany->currentAccount->currentbalance-$this->currentRentAgreement->amount,
+        ]);
+        CompanyTransactionRecord::create([
+            'rentalcompany_id' => $this->currentRentalCompany->id,
+            'credit' => false,
+            'amount' => $this->currentRentAgreement->amount,
+            'detail' => 'Rent Agreement Amount Debited',
+        ]);
+        $this->currentRentAgreement='';
+        $this->dispatchBrowserEvent('hideModel');
+        Session::flash('success', __('Agreement Amount Debited Successfully'));
     }
 
     public function render()
