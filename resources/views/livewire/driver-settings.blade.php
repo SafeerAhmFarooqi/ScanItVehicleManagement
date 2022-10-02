@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+{{-- <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
     <!--begin::Card header-->
     <div class="card-header cursor-pointer">
         <!--begin::Card title-->
@@ -174,7 +174,7 @@
      
     </div>
     <!--end::Card body-->
-</div>
+</div> --}}
 
 
 <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">

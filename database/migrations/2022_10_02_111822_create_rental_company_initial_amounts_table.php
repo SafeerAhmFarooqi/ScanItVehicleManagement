@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('driver_salary_records', function (Blueprint $table) {
+        Schema::create('rental_company_initial_amounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('rentalcompany_id')->nullable();
-            $table->unsignedBigInteger('driver_id')->nullable();
-            $table->decimal('amount',65,2)->nullable();
-            $table->timestamp('month')->nullable();
-            $table->timestamp('givendate')->nullable();
+            $table->decimal('initialbalance',65,2)->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('driver_salary_records');
+        Schema::dropIfExists('rental_company_initial_amounts');
     }
 };
