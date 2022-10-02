@@ -50,7 +50,7 @@ class AccountController extends AdminController
               return view('account-give-salary-page');
               break;
             case "2":
-                return view('user-management-roles-permission-page',[
+                return view('rental-company-vehicle-expenses-page',[
 
                 ]);
                 break;
