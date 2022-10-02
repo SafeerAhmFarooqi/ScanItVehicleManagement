@@ -274,11 +274,11 @@
                             </a>
                         </div> 
                         <div class="menu-item">
-                            <a class="menu-link" href="#">
+                            <a class="menu-link" href="{{route('app.account.show',[2])}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Create New Expense</span>
+                                <span class="menu-title">Vehicle Expenses</span>
                             </a>
                         </div> 
                         <div class="menu-item">
