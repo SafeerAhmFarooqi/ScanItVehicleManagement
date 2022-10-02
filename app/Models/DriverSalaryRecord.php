@@ -14,4 +14,9 @@ class DriverSalaryRecord extends Model
     protected $dates = ['deleted_at','month','givendate'];
 
     protected $fillable = ['rentalcompany_id', 'driver_id','amount','month','givendate','deleted_at'];
+
+    public function rentalCompany()
+    {
+        return $this->belongsTo(RentalCompany::class, 'rentalcompany_id');
+    }
 }

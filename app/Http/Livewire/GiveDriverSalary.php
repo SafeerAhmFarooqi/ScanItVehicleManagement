@@ -10,6 +10,7 @@ use App\Models\DriverAdvancePayment;
 use App\Models\DriverSalaryRecord;
 use App\Models\CompanyTransactionRecord;
 use App\Models\CompanyCurrentAccount;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -22,10 +23,14 @@ class GiveDriverSalary extends Component
     public $subtractFromAdvancePayment=0;
     public $selectedDeductSalaryMonth='';
     public $selectedDeductSalaryAmount='';
+    public $selectedSalaryMonth='';
+    public $selectedSalaryAmount='';
 
     protected $validationAttributes = [
         'selectedDeductSalaryMonth' => 'Month',
         'selectedDeductSalaryAmount' => 'Amount',
+        'selectedSalaryMonth' => 'Month',
+        'selectedSalaryAmount' => 'Amount',
     ];
 
     protected $messages = [
@@ -38,6 +43,45 @@ class GiveDriverSalary extends Component
             'selectedDeductSalaryMonth' => ['required', 'date'],
             'selectedDeductSalaryAmount' => ['required', 'numeric'],
         ];
+    }
+
+    protected function submitMonthlySalaryRules()
+    {
+        return [
+            'selectedSalaryMonth' => ['required', 'date'],
+            'selectedSalaryAmount' => ['required', 'numeric'],
+        ];
+    }
+
+    public function submitMonthlySalary()
+    {
+        $this->validate($this->submitMonthlySalaryRules());
+        if($this->selectedSalaryMonth&&$this->selectedSalaryAmount>0)
+        {
+            DriverSalaryRecord::create([
+                'rentalcompany_id' => $this->selectedRentalCompany,
+                'driver_id' => $this->selectedDriver,
+                'amount' => $this->selectedSalaryAmount,
+                'month' => $this->selectedSalaryMonth,
+            ]);
+
+            $companyCurrentAccount=CompanyCurrentAccount::find($this->selectedRentalCompany);
+
+            $companyCurrentAccount->update([
+                'currentbalance' => $companyCurrentAccount->currentbalance-$this->selectedSalaryAmount,
+            ]);
+    
+            CompanyTransactionRecord::create([
+                'rentalcompany_id' => $this->selectedRentalCompany,
+                'credit' => false,
+                'amount' => $this->selectedSalaryAmount,
+                'detail' => 'Monthly Salary For driver',
+            ]);
+
+            $this->selectedSalaryMonth='';
+            $this->selectedSalaryAmount='';
+            Session::flash('success', __('Salary Given To Driver Successfully'));
+        }
     }
 
     public function submitSalaryDeduction()
@@ -60,6 +104,8 @@ class GiveDriverSalary extends Component
                         'amount' => $amount,
                         'month' => $this->selectedDeductSalaryMonth,
                     ]);
+
+                    
                 }
             }
             
@@ -149,6 +195,7 @@ class GiveDriverSalary extends Component
             'rentalCompanies' => RentalCompany::all(),
             'currentDriver' => $this->currentDriver,
             'drivers' => Driver::where('rentalcompany_id',$this->selectedRentalCompany)->get(),
+            'driverSalaryRecords' => DriverSalaryRecord::where('rentalcompany_id',$this->selectedRentalCompany)->where('driver_id',$this->selectedDriver)->orderBy('month','DESC')->get(),
         ]);
     }
 }
