@@ -58,7 +58,7 @@ class GiveDriverSalary extends Component
         $this->validate($this->submitMonthlySalaryRules());
         if($this->selectedSalaryMonth&&$this->selectedSalaryAmount>0)
         {
-            DriverSalaryRecord::create([
+           $driverSalaryRecord=DriverSalaryRecord::create([
                 'rentalcompany_id' => $this->selectedRentalCompany,
                 'driver_id' => $this->selectedDriver,
                 'amount' => $this->selectedSalaryAmount,
@@ -76,6 +76,7 @@ class GiveDriverSalary extends Component
                 'credit' => false,
                 'amount' => $this->selectedSalaryAmount,
                 'detail' => 'Monthly Salary For driver',
+                'related_id' => $driverSalaryRecord->id,
             ]);
 
             $this->selectedSalaryMonth='';
@@ -131,10 +132,11 @@ class GiveDriverSalary extends Component
                     'credit' => false,
                     'amount' => $this->addToAdvancePayment,
                     'detail' => 'Add to Driver Advance Payment',
+                    'related_id' => $this->currentDriver->advancePayment->id,
                 ]);
 
             } else {
-                DriverAdvancePayment::create([
+              $driverAdvancePayment= DriverAdvancePayment::create([
                     'rentalcompany_id' => $this->selectedRentalCompany,
                     'driver_id' => $this->selectedDriver,
                     'advancepayment' => $this->addToAdvancePayment, 
@@ -151,6 +153,7 @@ class GiveDriverSalary extends Component
                     'credit' => false,
                     'amount' => $this->addToAdvancePayment,
                     'detail' => 'Add to Driver Advance Payment',
+                    'related_id' => $driverAdvancePayment->id,
                 ]);
             }
             $this->addToAdvancePayment=0;
@@ -175,6 +178,7 @@ class GiveDriverSalary extends Component
                         'credit' => true,
                         'amount' => $amount,
                         'detail' => 'Add to Driver Advance Payment',
+                        'related_id' => $this->currentDriver->advancePayment->id, 
                     ]);
                     $this->currentDriver->advancePayment->update([
                         'advancepayment' => $this->currentDriver->advancePayment->advancepayment-$amount,
