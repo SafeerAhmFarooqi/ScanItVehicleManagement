@@ -5,18 +5,17 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 
 use App\Models\RentalCompany;
-use App\Models\Vehicle;
-use App\Models\VehicleExpenses as VehicleExpense;
+use App\Models\ExpenseGroup;
+use App\Models\RentalCompanyExpense;
 use App\Models\CompanyTransactionRecord;
 use App\Models\CompanyCurrentAccount;
 use Illuminate\Support\Facades\Session;
 
-
-class VehicleExpenses extends Component
+class CreateRentalCompanyExpense extends Component
 {
     public $forms=[' '];
     public $selectedRentalCompany=[];
-    public $selectedVehicle=[];
+    public $selectedExpenseGroup=[];
     public $selectedDate=[];
     public $selectedExpenseHead=[];
     public $selectedRate=[0];
@@ -26,7 +25,7 @@ class VehicleExpenses extends Component
     protected $validationAttributes = [
         'selectedRentalCompany.0' => 'Rental Company',
         'selectedRentalCompany.*' => 'Rental Company',
-        'selectedVehicle' => 'Vehicle',
+        'selectedExpenseGroup' => 'Expense Group',
         'selectedDate' => 'Date',
         'selectedExpenseHead' => 'Expense Head',
         'selectedRate' => 'Rate',
@@ -43,7 +42,7 @@ class VehicleExpenses extends Component
         return [
             'selectedRentalCompany.0' => ['required','numeric'],
             'selectedRentalCompany.*' => ['required','numeric'],
-            'selectedVehicle' => ['required'],
+            'selectedExpenseGroup' => ['required'],
             'selectedDate' => ['required', 'date'],
             'selectedExpenseHead' => ['required', 'string','max:100'],
             'selectedRate' => ['required', 'numeric'],
@@ -56,10 +55,10 @@ class VehicleExpenses extends Component
         //$this->validate();
 
         foreach ($this->forms as $key => $value) {
-            if (@$this->selectedRentalCompany[$key]&&@$this->selectedVehicle[$key]&&@$this->selectedDate[$key]&&@$this->selectedExpenseHead[$key]&&@$this->selectedRate[$key]&&@$this->selectedQuantity[$key]) {
-                $vehicleExpense=VehicleExpense::create([
+            if (@$this->selectedRentalCompany[$key]&&@$this->selectedExpenseGroup[$key]&&@$this->selectedDate[$key]&&@$this->selectedExpenseHead[$key]&&@$this->selectedRate[$key]&&@$this->selectedQuantity[$key]) {
+                $rentalCompanyExpense=RentalCompanyExpense::create([
                     'rentalcompany_id' => $this->selectedRentalCompany[$key],
-                    'vehicle_id' => $this->selectedVehicle[$key],
+                    'expensegroup_id' => $this->selectedExpenseGroup[$key],
                     'date' => $this->selectedDate[$key],
                     'expensehead' => $this->selectedExpenseHead[$key],
                     'rate' => $this->selectedRate[$key],
@@ -76,8 +75,8 @@ class VehicleExpenses extends Component
                     'rentalcompany_id' => $this->selectedRentalCompany[$key],
                     'credit' => false,
                     'amount' => $this->selectedAmount[$key],
-                    'detail' => 'Vehicle Expenses',
-                    'related_id' => $vehicleExpense->id,
+                    'detail' => 'Rental Company Expenses',
+                    'related_id' => $rentalCompanyExpense->id,
                 ]);
 
                 Session::flash('success', __('Expense Record Made Successfully'));
@@ -85,20 +84,18 @@ class VehicleExpenses extends Component
         }
     }
 
-  
-
     public function render()
     {
-        $vehicles=[];
+        $expenseGroups=[];
         foreach ($this->forms as $key => $value) {
-            $vehicles[$key]=Vehicle::where('rentalcompany_id',$this->selectedRentalCompany[$key]??0)->get(); 
+            $expenseGroups[$key]=ExpenseGroup::where('rentalcompany_id',$this->selectedRentalCompany[$key]??0)->get(); 
             if (@$this->selectedRate[$key]!=Null&&@$this->selectedQuantity[$key]!=Null) {
                 $this->selectedAmount[$key]=$this->selectedRate[$key]*(float)$this->selectedQuantity[$key];
             }
         }
-        return view('livewire.vehicle-expenses',[
+        return view('livewire.create-rental-company-expense',[
             'rentalCompanies' => RentalCompany::all(),
-            'vehicles' => $vehicles,
+            'expenseGroups' => $expenseGroups,
         ]);
     }
 

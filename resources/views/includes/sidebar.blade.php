@@ -282,6 +282,22 @@
                             </a>
                         </div> 
                         <div class="menu-item">
+                            <a class="menu-link" href="{{route('app.account.show',[5])}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Create Expense Group</span>
+                            </a>
+                        </div> 
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{route('app.account.show',[4])}}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Rental Company Expenses</span>
+                            </a>
+                        </div> 
+                        <div class="menu-item">
                             <a class="menu-link" href="{{route('app.account.show',[3])}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>

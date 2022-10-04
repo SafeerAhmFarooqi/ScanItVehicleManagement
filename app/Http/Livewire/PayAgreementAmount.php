@@ -37,6 +37,7 @@ class PayAgreementAmount extends Component
             'credit' => true,
             'amount' => $this->currentRentAgreement->amount,
             'detail' => 'Rent Agreement Amount Credited',
+            'related_id' => $this->currentRentAgreement->id,
         ]);
         $this->currentRentAgreement='';
         $this->dispatchBrowserEvent('hideModel');
@@ -57,6 +58,7 @@ class PayAgreementAmount extends Component
             'credit' => false,
             'amount' => $this->currentRentAgreement->amount,
             'detail' => 'Rent Agreement Amount Debited',
+            'related_id' => $this->currentRentAgreement->id,
         ]);
         $this->currentRentAgreement='';
         $this->dispatchBrowserEvent('hideModel');

@@ -62,8 +62,12 @@ class AccountController extends AdminController
                     break;
                     case "4":
 
-                        return view('expense-report-page');
+                        return view('rental-company-expenses-page');
                         break;
+                        case "5":
+
+                            return view('create-expanse-group-page');
+                            break;
             default:
               return back();
           }
