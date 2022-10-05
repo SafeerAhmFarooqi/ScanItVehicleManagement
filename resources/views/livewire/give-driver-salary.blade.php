@@ -66,7 +66,11 @@
             <!--begin::Budget-->
             <div class="card h-100">
                 <div class="card-body p-9">
-                    <h1 class="">Company Total Balance {{$this->currentDriver->rentalCompany->currentAccount->currentbalance??'' }}</h1>
+                    <h1 class="">Company Total Balance 
+                    @can('Company Total Balance Show')
+                    {{$this->currentDriver->rentalCompany->currentAccount->currentbalance??'' }}
+                    @endcan
+                    </h1>
                 </div>
             </div>
             <!--end::Budget-->
@@ -106,14 +110,18 @@
                     <label class="col-lg-4 fw-bold text-muted">Add to Advance Payment-{{$addToAdvancePayment}}</label>
                     <!--end::Label-->
                     <!--begin::Col-->
+                    @can('Add to Advance Payment Function')
                     <div class="col-lg-3 fv-row">
                         <input wire:model="addToAdvancePayment" type="number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Add to Advance Payment" min="0" />
                        
                     </div>
                     <div class="col-lg-2 fv-row">
+
                          <button type="submit" class="btn btn-primary">Add</button>
                         
                      </div>
+                    @endcan
+                  
                     <!--end::Col-->
                 </div>
             </form>
@@ -127,6 +135,7 @@
                    </label>
                     <!--end::Label-->
                     <!--begin::Col-->
+                    @can('Subtract From Advance Payment Function')
                     <div class="col-lg-3 fv-row">
                         <input wire:model="subtractFromAdvancePayment" type="number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Subtract from Advance Payment" min="0"/>
                        
@@ -135,6 +144,8 @@
                         <button type="submit" class="btn btn-primary">Sub</button>
                        
                     </div>
+                    @endcan
+                   
                     <!--end::Col-->
                 </div>
             </form>
@@ -156,6 +167,7 @@
                         @enderror
                        
                     </div>
+                    @can('Deduct From Salary Function')
                     <div class="col-lg-2 fv-row">
                         Salary Amount <input wire:model="selectedDeductSalaryAmount" type="number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Amount" min="0"/>
                         @error('selectedDeductSalaryAmount')
@@ -168,6 +180,8 @@
                        Click to Deduct <button type="submit" class="btn btn-primary">Deduct</button>
                        
                     </div>
+                    @endcan
+                   
                     <!--end::Col-->
                 </div>
             </form>
@@ -211,6 +225,7 @@
                         @enderror
                        
                     </div>
+                    @can('Give Monthly Salary Function')
                     <div class="col-lg-2 fv-row">
                         Salary Amount <input wire:model="selectedSalaryAmount" type="number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Amount" min="0"/>
                         @error('selectedSalaryAmount')
@@ -223,6 +238,8 @@
                         <button type="submit" class="btn btn-primary mt-6">Pay</button>
                        
                     </div>
+                    @endcan
+                    
                     <!--end::Col-->
                 </div>
             </form>

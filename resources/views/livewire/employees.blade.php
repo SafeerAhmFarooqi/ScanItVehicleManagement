@@ -4,28 +4,25 @@
         <!--begin::Header-->
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">Expanse Groups</span>
-                <span class="text-muted mt-1 fw-bold fs-7">{{$expanseGroups->count()}} Groups</span>
+                <span class="card-label fw-bolder fs-3 mb-1">Employees</span>
+                <span class="text-muted mt-1 fw-bold fs-7">{{$employees->count()}} Employees</span>
             </h3>
-        
+            @can('Create New Employee Function')
             <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" >
                 <div class="me-10">
                     <input wire:model="search" type="text" class="form-control form-control-sm form-control-solid" placeholder="Search" title="Type to Search"/>
                 </div>
-                @can('Create New Expense Group Function')
                 <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends" title="Click to add New Expense">
-                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                    <span class="svg-icon svg-icon-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->New Group</a>
-                @endcan
-                
+                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                <span class="svg-icon svg-icon-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->New Employee</a>
             </div>
-        
+            @endcan
            
         </div>
         <!--end::Header-->
@@ -39,16 +36,21 @@
                     <thead>
                         <tr class="fw-bolder text-muted">
                             <th class="min-w-100px">Serail No</th>
-                            <th class="min-w-100px">Rental Company</th>
-                            <th class="min-w-150px">Group Name</th>
-                            <th class="min-w-150px">Description</th>
+                            <th class="min-w-150px">Name</th>
+                            <th class="min-w-150px">Email/UserName</th>
+                            <th class="min-w-150px">Role</th>
+                            <th class="min-w-150px">Password</th>
+                            <th class="min-w-150px">Address</th>
+                            <th class="min-w-150px">Phone Number</th>
+                            <th class="min-w-150px">Designation</th>
+                            <th class="min-w-150px">Date Created</th>
                             <th class="min-w-100px text-end">Actions</th>
                         </tr>
                     </thead>
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody>
-                        @foreach ($expanseGroups as $expanseGroup)
+                        @foreach ($employees as $employee)
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
@@ -63,7 +65,7 @@
                                 <div class="d-flex align-items-center">
                                     
                                     <div class="d-flex justify-content-start flex-column">
-                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$expanseGroup->rentalCompany->name??''}}</a>
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->name}}</a>
                                        
                                     </div>
                                 </div>
@@ -72,20 +74,76 @@
                                 <div class="d-flex align-items-center">
                                     
                                     <div class="d-flex justify-content-start flex-column">
-                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$expanseGroup->name}}</a>
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->email}}</a>
                                        
                                     </div>
                                 </div>
                             </td>
                             <td>
-                               
-                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">{{$expanseGroup->description}}</span>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->hasRole('Employee')?'Employee' : ''}}</a>
+                                       
+                                    </div>
+                                </div>
                             </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->savePassword->password??''}}</a>
+                                       
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->address??''}}</a>
+                                       
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->phonenumber??''}}</a>
+                                       
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->designation??''}}</a>
+                                       
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    
+                                    <div class="d-flex justify-content-start flex-column">
+                                        <a class="text-dark fw-bolder text-hover-primary fs-6">{{$employee->created_at->format('F d,y')??''}}</a>
+                                       
+                                    </div>
+                                </div>
+                            </td>
+                           
                         
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                   @can('Edit Expense Group Function')
-                                   <a href="javascript:;" wire:click="getExpanseGroup({{$expanseGroup->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_update">
+                                   @can('Edit Employee Function')
+                                   <a href="javascript:;" wire:click="getEmployee({{$employee->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_update">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -96,10 +154,8 @@
                                     <!--end::Svg Icon-->
                                 </a>
                                    @endcan
-                                  
-                        
-                                    @can('Delete Expense Group Function')
-                                    <a href="javascript:;" wire:click="deleteExpanseGroup({{$expanseGroup->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_delete">
+                                    @can('Delete Employee Function')
+                                    <a href="javascript:;" wire:click="deleteEmployee({{$employee->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_delete">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                         <span class="svg-icon svg-icon-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -111,8 +167,6 @@
                                         <!--end::Svg Icon-->
                                     </a>
                                     @endcan
-                                    
-                
                                    
                                 </div>
                             </td>
@@ -169,7 +223,7 @@
                         <!--begin::Heading-->
                         <div class="text-center mb-13">
                             <!--begin::Title-->
-                            <h1 class="mb-3">Create New Expanse Group</h1>
+                            <h1 class="mb-3">Create New Employee</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                        
@@ -183,68 +237,98 @@
                         <div class="separator d-flex flex-center mb-8">
                             <span class="text-uppercase bg-body fs-7 fw-bold text-muted px-3"></span>
                         </div>
-                      
-                       
-                        <div class="mb-10">
-                            <!--begin::Heading-->
-                            <label>
+                        <label>
                      
-                                <span class="text-dark fw-bolder text-hover-primary fs-6">Rental Company</span>
-                            </label>
-                            <select class="form-control  form-control-solid mb-8" placeholder="Expense Group" id="sel1" wire:model="selectedRentalCompany">
-                                <option value="" selected>Rental Company</option>
-                              @foreach ($rentalCompanies as $rentalCompany)
-                                  <option value="{{$rentalCompany->id}}">{{$rentalCompany->name}}</option>
-                              @endforeach
-                            <!--end::Heading-->
-                            <!--begin::List-->
-                          
-                            <!--end::List-->
-                        </div>
-                     
-                            
-                 
-                        <div class="mb-10">
-                            <label>
-                     
-                                <span class="text-dark fw-bolder text-hover-primary fs-6">Group Name</span>
-                            </label>
-                            <input wire:model="groupName" type="text" class="form-control  form-control-solid mb-8" placeholder="Expanse Group Name"/>
-                            @error('groupName')
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Name</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeeName" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Name"/>
+                            @error('employeeName')
                             <span class="alert alert-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee User Name/Email</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeeEmail" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee User Name/Email"/>
+                            @error('employeeEmail')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Password</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeePassword" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Password"/>
+                            @error('employeePassword')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Address</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeeAddress" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Address"/>
+                            @error('employeeAddress')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Phone Number</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeePhoneNumber" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Phone Number"/>
+                            @error('employeePhoneNumber')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Designation</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="employeeDesignation" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Designation"/>
+                            @error('employeeDesignation')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        
                         <!--end::Separator-->
                         <!--begin::Textarea-->
                        
                         <!--end::Textarea-->
                         <!--begin::Users-->
-                        <div class="mb-10">
-                            <!--begin::Heading-->
-                            <label>
                      
-                                <span class="text-dark fw-bolder text-hover-primary fs-6">Description</span>
-                            </label>
-                            <textarea wire:model="groupDescription" class="form-control form-control-solid mb-8" rows="3" placeholder="Description for Expanse Group"></textarea>
-                            @error('groupDescription')
-                            <span class="alert alert-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            <!--end::Heading-->
-                            <!--begin::List-->
-                          
-                            <!--end::List-->
-                        </div>
                         <!--end::Users-->
                         <!--begin::Notice-->
                         <div class="d-flex flex-stack">
                             <!--begin::Label-->
                             <div class="d-flex flex-center mt-15">
                                 <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
-                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Create Group</button>
+                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Create Employee</button>
                             </div>
                             <!--end::Switch-->
                         </div>
@@ -287,7 +371,7 @@
                         <!--begin::Heading-->
                         <div class="text-center mb-13">
                             <!--begin::Title-->
-                            <h1 class="mb-3">Update {{$editExpanseGroup->name??''}}</h1>
+                            <h1 class="mb-3">Update {{$showEmployeeName??''}}</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                        
@@ -303,11 +387,65 @@
                         </div>
                         <label>
                      
-                            <span class="text-dark fw-bolder text-hover-primary fs-6">Group Name</span>
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Name</span>
                         </label>
                         <div class="mb-5">
-                            <input wire:model="editGroupName" type="text" class="form-control form-control-sm form-control-solid" placeholder="Expanse Group Name"/>
-                            @error('editGroupName')
+                            <input wire:model="editEmployeeName" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Name"/>
+                            @error('editEmployeeName')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Password</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="editEmployeePassword" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Password"/>
+                            @error('editEmployeePassword')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Address</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="editEmployeeAddress" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Address"/>
+                            @error('editEmployeeAddress')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Phone Number</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="editEmployeePhoneNumber" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Phone Number"/>
+                            @error('editEmployeePhoneNumber')
+                            <span class="alert alert-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <label>
+                     
+                            <span class="text-dark fw-bolder text-hover-primary fs-6">Employee Designation</span>
+                        </label>
+                        <div class="mb-5">
+                            <input wire:model="editEmployeeDesignation" type="text" class="form-control form-control-sm form-control-solid" placeholder="Employee Designation"/>
+                            @error('editEmployeeDesignation')
                             <span class="alert alert-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -318,30 +456,14 @@
                        
                         <!--end::Textarea-->
                         <!--begin::Users-->
-                        <div class="mb-10">
-                            <!--begin::Heading-->
-                            <label>
-                     
-                                <span class="text-dark fw-bolder text-hover-primary fs-6">Description</span>
-                            </label>
-                            <textarea wire:model="editGroupDescription" class="form-control form-control-solid mb-8" rows="3" placeholder="Description for Expanse Group"></textarea>
-                            @error('editGroupDescription')
-                            <span class="alert alert-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            <!--end::Heading-->
-                            <!--begin::List-->
-                          
-                            <!--end::List-->
-                        </div>
+                      
                         <!--end::Users-->
                         <!--begin::Notice-->
                         <div class="d-flex flex-stack">
                             <!--begin::Label-->
                             <div class="d-flex flex-center mt-15">
                                 <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
-                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Update Group</button>
+                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-primary">Update Employee</button>
                             </div>
                             <!--end::Switch-->
                         </div>
@@ -383,7 +505,7 @@
                         <!--begin::Heading-->
                         <div class="text-center mb-13">
                             <!--begin::Title-->
-                            <h1 class="mb-3">Delete {{$editGroupName??''}}</h1>
+                            <h1 class="mb-3">Delete {{$editEmployeeName??''}}</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                        
@@ -397,12 +519,9 @@
                         <div class="separator d-flex flex-center mb-8">
                             <span class="text-uppercase bg-body fs-7 fw-bold text-muted px-3"></span>
                         </div>
-                        <label>
-                     
-                            <span class="text-dark fw-bolder text-hover-primary fs-6">Group Name</span>
-                        </label>
+                      
                         <div class="mb-5">
-                            <h3>Are you sure you want to delete this group</h3>
+                            <h3>Are you sure you want to delete this employee</h3>
                         </div>
                         <!--end::Separator-->
                         <!--begin::Textarea-->
@@ -416,7 +535,7 @@
                             <!--begin::Label-->
                             <div class="d-flex flex-center mt-15">
                                 <button type="reset" id="kt_modal_users_search_reset" data-bs-dismiss="modal" class="btn btn-active-light me-3">Cancel</button>
-                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-danger">Delete Group</button>
+                                <button type="submit" id="kt_modal_users_search_submit" class="btn btn-danger">Delete Employee</button>
                             </div>
                             <!--end::Switch-->
                         </div>
