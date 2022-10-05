@@ -9,6 +9,8 @@ use App\Http\Controllers\RentAgreementController;
 use App\Http\Controllers\DriverAttendanceController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\PurchaseOrderController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +41,7 @@ Route::name('app.')->prefix("vehicle-management")->middleware(['auth'])->group(f
     Route::resource('driverattendance', DriverAttendanceController::class);
     Route::resource('account', AccountController::class);
     Route::resource('usermanagement', UserManagementController::class);
-    
+    Route::resource('purchaseorder', PurchaseOrderController::class);
 });
 
 require __DIR__.'/auth.php';
