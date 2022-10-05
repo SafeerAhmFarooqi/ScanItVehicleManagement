@@ -205,6 +205,12 @@ class PurchaseOrderController extends AdminController
                         'termAndCondition' => TermAndCondition::first(),
                     ]);
                     break;
+                    case "5":
+
+                        return view('create-new-purchase-order-page',[
+                          
+                        ]);
+                        break;
                   
             default:
               return back();
