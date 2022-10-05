@@ -12,15 +12,18 @@
                 <div class="me-10">
                     <input wire:model="search" type="text" class="form-control form-control-sm form-control-solid" placeholder="Search" title="Type to Search"/>
                 </div>
+                @can('Create New Expense Group Function')
                 <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends" title="Click to add New Expense">
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                <span class="svg-icon svg-icon-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                    </svg>
-                </span>
-                <!--end::Svg Icon-->New Group</a>
+                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                    <span class="svg-icon svg-icon-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->New Group</a>
+                @endcan
+                
             </div>
         
            
@@ -81,7 +84,7 @@
                         
                             <td>
                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                   
+                                   @can('Edit Expense Group Function')
                                    <a href="javascript:;" wire:click="getExpanseGroup({{$expanseGroup->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_update">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                     <span class="svg-icon svg-icon-3">
@@ -92,8 +95,10 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a>
+                                   @endcan
+                                  
                         
-                                    
+                                    @can('Delete Expense Group Function')
                                     <a href="javascript:;" wire:click="deleteExpanseGroup({{$expanseGroup->id}})" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends_delete">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                         <span class="svg-icon svg-icon-3">
@@ -105,6 +110,8 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                     </a>
+                                    @endcan
+                                    
                 
                                    
                                 </div>

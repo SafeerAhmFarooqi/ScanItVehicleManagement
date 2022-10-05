@@ -120,9 +120,15 @@
                         <td>{{$rentAgreement->paid?'Paid' : 'Unpaid'}}</td>
                         <td>
                             @if (!$rentAgreement->paid)
-                            <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_pay">Pay Now</a>                                
+                            @can('Pay Rent Agreement Amount Function')
+                            <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_pay">Pay Now</a> 
+                            @endcan
+                                                          
                             @else
-                            <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_unpay">UnPay Now</a>                                
+                            @can('UnPay Rent Agreement Amount Function')
+                            <a href="javascript:;" class="btn btn-primary" type="reset" wire:click="getRentAgreement({{$rentAgreement->id}})" data-bs-toggle="modal" data-bs-target="#kt_modal_unpay">UnPay Now</a>
+                            @endcan
+                                                           
                             @endif
                         </td>
                     </tr>    

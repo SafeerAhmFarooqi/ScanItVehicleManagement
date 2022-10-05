@@ -238,7 +238,10 @@
                     @enderror
                     </div>
                     <div class="col-lg-2 fv-row">
-                         <button type="submit" class="btn btn-primary">Update   </button>
+                        @can('Monthly Salary Update Function')
+                        <button type="submit" class="btn btn-primary">Update   </button>   
+                        @endcan
+                         
                         
                      </div>
                     <!--end::Col-->
@@ -369,7 +372,10 @@
                         @enderror
                         </div>
                         <div class="col-lg-2 fv-row">
-                             <button type="submit" class="btn btn-primary">Update   </button>
+                            @can('Holiday Settings Update Function')
+                            <button type="submit" class="btn btn-primary">Update   </button>
+                            @endcan
+                            
                             
                          </div>
                         <!--end::Col-->
