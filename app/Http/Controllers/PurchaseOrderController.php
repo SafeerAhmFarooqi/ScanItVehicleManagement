@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\TermAndCondition;
+use App\Models\PurchaseOrder;
 
 
 class PurchaseOrderController extends AdminController
@@ -211,6 +212,11 @@ class PurchaseOrderController extends AdminController
                           
                         ]);
                         break;
+                    case "6":
+                        return view('purchase-order-list-page',[
+                          'purchaseOrders' => PurchaseOrder::all(),
+                        ]);
+                        break;
                   
             default:
               return back();
@@ -225,7 +231,14 @@ class PurchaseOrderController extends AdminController
      */
     public function edit($id)
     {
-        //
+        $purchaseOrder=PurchaseOrder::find($id);
+        $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
+        $amountInWords=$f->format($purchaseOrder->amount??0);
+        return view('view-invoice-page',[
+            'purchaseOrder' => $purchaseOrder,
+            'amountInWords' => $amountInWords,
+            'termAndCondition' => TermAndCondition::first(),
+          ]);
     }
 
     /**
