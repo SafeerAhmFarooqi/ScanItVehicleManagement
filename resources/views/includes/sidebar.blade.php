@@ -464,6 +464,14 @@
                                                                 <span class="menu-title">Create Purchase Order</span>
                                                             </a>
                                                         </div> 
+                                                        <div class="menu-item">
+                                                            <a class="menu-link" href="{{route('app.purchaseorder.show',[6])}}">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <span class="menu-title">Purchase Order List</span>
+                                                            </a>
+                                                        </div> 
                                            
                                      
                                    
