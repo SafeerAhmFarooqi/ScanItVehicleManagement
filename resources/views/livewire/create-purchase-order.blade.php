@@ -50,18 +50,35 @@
                      
                       </div>
                       <div class="col-md-2">
+                        <label class="form-label">Product Category</label>
+                        {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
+                        
+                        <select class="form-control mb-2 mb-md-0" placeholder="Product Category" id="sel1" wire:model="selectedProductCategory.{{$key}}">
+                          <option value="" selected>Product Category</option>
+                        @foreach ($productCategories as $productCategory)
+                            <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
+                        @endforeach
+                           
+                      </select>
+                     
+                      </div>
+                      <div class="col-md-2">
                         <label class="form-label">Product Name</label>
                         {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}
                         
                         <select class="form-control mb-2 mb-md-0" placeholder="Product Name" id="sel1" wire:model="selectedProduct.{{$key}}">
                           <option value="" selected>Product Name</option>
-                          @foreach ($products as $product)
+                          @foreach ($products[$key] as $product)
                           <option value="{{$product->id}}">{{$product->name}}</option>
                       @endforeach
                            
                       </select>
                       </div>
+                      <div class="col-md-2">
+                        <label class="form-label">Specification</label>
+                        <input type="text" class="form-control mb-2 mb-md-0" placeholder="Specification" wire:model="selectedSpecification.{{$key}}" disabled/>
                    
+                      </div>
                       <div class="col-md-2">
                         <label class="form-label">Rate</label>
                         <input type="text" class="form-control mb-2 mb-md-0" placeholder="Rate" wire:model="selectedRate.{{$key}}" disabled/>
