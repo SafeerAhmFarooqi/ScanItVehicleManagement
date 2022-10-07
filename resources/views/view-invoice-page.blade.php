@@ -121,11 +121,14 @@
                                                             <tr>
                                                                 <th class="pt-1 pb-9 text-right pr-0 font-weight-bolder text-muted font-size-lg text-uppercase">Sr No</th>
                                                                 <th class="pt-1 pb-9 pl-0 font-weight-bolder text-muted font-size-lg text-uppercase">Item Name</th>
-                                                             
+                                                                <th class="pt-1 pb-9 text-right font-weight-bolder text-muted font-size-lg text-uppercase">Specification</th>
+                                                                <th class="pt-1 pb-9 text-right font-weight-bolder text-muted font-size-lg text-uppercase">Category</th>
                                                                 <th class="pt-1 pb-9 text-right font-weight-bolder text-muted font-size-lg text-uppercase">Quantity</th>
+                                                            
+                                                                
                                                                 <th class="pt-1 pb-9 text-right pr-0 font-weight-bolder text-muted font-size-lg text-uppercase">Units</th>
                                                                 <th class="pt-1 pb-9 text-right pr-0 font-weight-bolder text-muted font-size-lg text-uppercase">Rate</th>
-                                                                <th class="pt-1 pb-9 text-right pr-0 font-weight-bolder text-muted font-size-lg text-uppercase">Amount</th>
+                                                                <th class="pt-1 pb-9 text-right pr-0 font-weight-bolder text-muted font-size-lg text-uppercase">Total Amount</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -135,8 +138,12 @@
                                                                 <span class="navi-icon mr-2">
                                                                   
                                                                 </span>{{$purchaseOrder->product->name??''}}</td>
+                                                                <td class="text-right pt-7">{{$purchaseOrder->product->specification??''}}</td>
+                                                                <td class="text-right pt-7">{{$purchaseOrder->product->category->name??''}}</td>
                                                                 <td class="text-right pt-7">{{$purchaseOrder->quantity??''}}</td>
-                                                                <td class="text-right pt-7">Kg</td>
+                                                               
+                                                                
+                                                                <td class="text-right pt-7">{{$purchaseOrder->product->unit??''}}</td>
                                                                 <td class="pr-0 pt-7 font-size-h6 font-weight-boldest text-right">{{$purchaseOrder->rate??''}}</td>
                                                                 <td class="pr-0 pt-7 font-size-h6 font-weight-boldest text-right">{{$purchaseOrder->amount??''}}</td>
                                                             </tr>
@@ -158,8 +165,7 @@
                                             </div>
                                             <div class="col-md-3 border-left-md pl-md-10 py-md-10 text-right">
                                                 <!--begin::Total Amount-->
-                                                <div class="font-size-h4 font-weight-bolder text-muted mb-3">TOTAL AMOUNT</div>
-                                                <div class="font-size-h1 font-weight-boldest">{{$purchaseOrder->amount??''}}</div>
+                                             
                                                 <!--end::Total Amount-->
                                                 <div class="border-bottom w-100 mb-20"></div>
                                                 <!--begin::Invoice To-->

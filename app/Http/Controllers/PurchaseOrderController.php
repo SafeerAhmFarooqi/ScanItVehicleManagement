@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Supplier;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\TermAndCondition;
 use App\Models\PurchaseOrder;
 
@@ -108,6 +109,9 @@ class PurchaseOrderController extends AdminController
                 'name' => ['required', 'string', 'max:100'],
                 'brandname' => ['required'],
                 'price' => ['required', 'numeric'],
+                'categoryname' => ['required'],
+                'unit' => ['required','string'],
+                'specification' => ['required','string'],
                  
             ],[
                 //Validation Messages
@@ -117,14 +121,18 @@ class PurchaseOrderController extends AdminController
                 'name' => 'Product Name',
                 'brandname' => 'Brand Name',
                 'price' => 'Product Price',
-              
-                 
+                'categoryname' => 'Category',
+                'Unit' => 'Unit',
+                'specification' => 'Specification',
             ]);
     
             $product=Product::create([
-                'brand_id' => $request->brandname,  
+                'brand_id' => $request->brandname,
+                'category_id' => $request->categoryname,  
                 'name' => $request->name,
                 'price' => $request->price,
+                'unit' => $request->unit,
+                'specification' => $request->specification,
             ]);
     
             if($product)
@@ -175,6 +183,36 @@ class PurchaseOrderController extends AdminController
                 return back()->with('error', 'Unable to Created/Updated Term And Condition' );
             }
         }
+
+        if ($request->type=="addcategory") {
+            $request->validate([
+                //Validation Rules
+                'name' => ['required', 'string', 'max:100'],
+                
+                 
+            ],[
+                //Validation Messages
+                'required'=>':attribute Is Required',
+            ],[
+                //Validation Attributes
+                'name' => 'Category Name',
+              
+                 
+            ]);
+    
+            $productCategory=ProductCategory::create([
+                'name' => $request->name,  
+            ]);
+    
+            if($productCategory)
+            {
+                return back()->with('success', 'New Product Category Created Successfully' );
+            }
+            else
+            {
+                return back()->with('error', 'Unable to create new Product Category' );
+            }
+        }
     }
 
     /**
@@ -198,6 +236,7 @@ class PurchaseOrderController extends AdminController
 
                     return view('add-new-product-page',[
                             'brands' => Brand::all(),
+                            'productCategories' => ProductCategory::all(),
                     ]);
                     break;
                 case "4":
@@ -216,6 +255,9 @@ class PurchaseOrderController extends AdminController
                         return view('purchase-order-list-page',[
                           'purchaseOrders' => PurchaseOrder::all(),
                         ]);
+                        break;
+                    case "7":
+                        return view('add-new-category-page');
                         break;
                   
             default:

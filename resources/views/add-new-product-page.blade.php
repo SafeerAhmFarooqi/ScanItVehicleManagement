@@ -107,6 +107,29 @@
                                 </div>
                                 <div class="row mb-6">
                                     <!--begin::Label-->
+                                     <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Category Name</span> <i aria-label="Store of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                                     <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <select aria-hidden="true" aria-label="Select Area/Mall" class="form-select form-select-solid form-select-lg fw-semibold select2-hidden-accessible" data-control="select2" data-kt-initialized="1" data-placeholder="Select Category" data-select2-id="select2-data-10-ewc6" name="categoryname" tabindex="-1">
+                                            <option data-select2-id="select2-data-12-u8ev" value="">
+                                                Select Category
+                                            </option>
+                                          @foreach ($productCategories as $productCategory)
+                                          <option  value="{{$productCategory->id}}">
+                                            {{$productCategory->name}}
+                                        </option>
+                                          @endforeach
+                                        </select> 
+                                        @error('categoryname')
+                                        <div class="alert alert-danger" role="alert">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div><!--end::Col-->
+                                </div>
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
                                      <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Product Name</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
                                      <!--begin::Col-->
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -126,6 +149,34 @@
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                         <input class="form-control form-control-lg form-control-solid" type="number" placeholder="Price" name="price" value="{{old('price')}}"/>
                                         @error('price')
+                                        <span class="alert alert-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div><!--end::Col-->
+                                </div>
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                     <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Specification</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                                     <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Specification" name="specification" value="{{old('specification')}}"/>
+                                        @error('specification')
+                                        <span class="alert alert-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div><!--end::Col-->
+                                </div>
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                     <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Unit</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                                     <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Unit" name="unit" value="{{old('unit')}}"/>
+                                        @error('unit')
                                         <span class="alert alert-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

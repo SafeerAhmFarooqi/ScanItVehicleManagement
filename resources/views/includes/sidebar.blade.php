@@ -437,6 +437,15 @@
                                                             <span class="menu-title">Add New Brand</span>
                                                         </a>
                                                     </div> 
+
+                                                    <div class="menu-item">
+                                                        <a class="menu-link" href="{{route('app.purchaseorder.show',[7])}}">
+                                                            <span class="menu-bullet">
+                                                                <span class="bullet bullet-dot"></span>
+                                                            </span>
+                                                            <span class="menu-title">Add New Category</span>
+                                                        </a>
+                                                    </div> 
                                                
                                                      
                                                         <div class="menu-item">
