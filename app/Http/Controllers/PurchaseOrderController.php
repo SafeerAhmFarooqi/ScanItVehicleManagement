@@ -259,6 +259,9 @@ class PurchaseOrderController extends AdminController
                     case "7":
                         return view('add-new-category-page');
                         break;
+                    case "8":
+                        return view('goods-received-page');
+                        break;
                   
             default:
               return back();
