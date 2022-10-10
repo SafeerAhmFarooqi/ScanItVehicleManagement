@@ -31,11 +31,7 @@
                         <input type="date" class="form-control mb-2 mb-md-0" placeholder="Date" wire:model="selectedDateOfPurchase.{{$key}}"/>
                    
                       </div>
-                      <div class="col-md-2">
-                        <label class="form-label">Invoice Number</label>
-                        <input type="text" class="form-control mb-2 mb-md-0" placeholder="Invoice Number" wire:model="selectedInvoiceNumber.{{$key}}"/>
-                   
-                      </div>
+                     
                     <div class="col-md-2">
                         <label class="form-label">Supplier Name</label>
                         {{-- <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter full name" name="name1" id="check1"/> --}}

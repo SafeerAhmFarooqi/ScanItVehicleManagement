@@ -14,13 +14,13 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Session;
 use App\Models\PurchaseOrder;
+use Illuminate\Support\Carbon;
 
 
 class CreatePurchaseOrder extends Component
 {
     public $forms=[' '];
     public $selectedDateOfPurchase=[];
-    public $selectedInvoiceNumber=[];
     public $selectedSupplier=[];
     public $selectedProductCategory=[];
     public $selectedProduct=[];
@@ -66,14 +66,25 @@ class CreatePurchaseOrder extends Component
      
 
         foreach ($this->forms as $key => $value) {
-            if (@$this->selectedDateOfPurchase[$key]&&@$this->selectedInvoiceNumber[$key]&&@$this->selectedSupplier[$key]&&@$this->selectedProductCategory[$key]&&@$this->selectedProduct[$key]&&@$this->selectedRate[$key]&&@$this->selectedQuantity[$key]&&@$this->selectedDeliveryDate[$key]) {
+            if (@$this->selectedDateOfPurchase[$key]&&@$this->selectedSupplier[$key]&&@$this->selectedProductCategory[$key]&&@$this->selectedProduct[$key]&&@$this->selectedRate[$key]&&@$this->selectedQuantity[$key]&&@$this->selectedDeliveryDate[$key]) {
+                
+                while(true)
+                {
+                 $invoiceNumber=Carbon::now()->format('y').Carbon::now()->format('m').mt_rand('1000000','9999999');
+                 if (PurchaseOrder::where('invoicenumber',$invoiceNumber)->first()) {
+                    continue;
+                 } else {
+                    break;
+                 }    
+                }
+                
                 $purchaseOrder=PurchaseOrder::create([
                     'category_id' => $this->selectedProductCategory[$key],
                     'supplier_id' => $this->selectedSupplier[$key],
                     'product_id' => $this->selectedProduct[$key],
                     'date' => $this->selectedDateOfPurchase[$key],
                     'deliverydate' => $this->selectedDeliveryDate[$key],
-                    'invoicenumber' => $this->selectedInvoiceNumber[$key],
+                    'invoicenumber' => $invoiceNumber,
                     'rate' => $this->selectedRate[$key],
                     'quantity' => $this->selectedQuantity[$key],
                     'amount' => $this->selectedRate[$key]*$this->selectedQuantity[$key],
@@ -84,6 +95,8 @@ class CreatePurchaseOrder extends Component
                 Session::flash('success', __('Purchase Order Created Successfully'));
             }
         }
+
+        $this->resetForm();
     }
 
     public function render()
@@ -113,5 +126,20 @@ class CreatePurchaseOrder extends Component
     {
         unset($this->forms[$key]);
         $this->forms = array_values($this->forms);
+    }
+
+    public function resetForm()
+    {
+        $this->forms=[' '];
+        $this->selectedDateOfPurchase=[];
+        $this->selectedSupplier=[];
+        $this->selectedProductCategory=[];
+        $this->selectedProduct=[];
+        $this->selectedRate=[0];
+        $this->selectedQuantity=[0];
+        $this->selectedAmount=[0];
+        $this->selectedDeliveryDate=[];
+        $this->selectedNote=[];
+        $this->selectedSpecification=[];
     }
 }
