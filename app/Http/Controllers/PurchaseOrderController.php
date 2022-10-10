@@ -262,6 +262,9 @@ class PurchaseOrderController extends AdminController
                     case "8":
                         return view('goods-received-page');
                         break;
+                    case "9":
+                        return view('goods-received-report-page');
+                        break;
                   
             default:
               return back();
