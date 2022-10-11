@@ -12,8 +12,33 @@
             <div class="card-toolbar">
                 <div class="my-1 me-4">
                     <!--begin::Select-->
+                    <label for="" class="text-dark"><h3>Select Date Range</h3></label>
+                    <input type="date" wire:model="selectedStartDate" class="form-control w-200px">
+                    <!--end::Select-->
+                </div>
+                <h3 style="margin-top: 30px;margin-right: 20px;">to</h3>
+                <div class="my-1 me-4">
+                    <!--begin::Select-->
+                    <label for="" class="text-dark"><h3></h3></label>
+                    <input type="date" wire:model="selectedEndDate" class="form-control w-200px">
+                    <!--end::Select-->
+                </div>
+
+             
+               
+
+            
+            
+            
+                
+             
+                {{-- <a href="#" class="btn btn-sm btn-primary my-1">View All</a> --}}
+            </div>
+            <div class="card-toolbar">
+                <div class="my-1 me-4">
+                    <!--begin::Select-->
                     <label for="" class="text-dark"><h3>Search By Invoice Number</h3></label>
-                    <input type="text" wire:model="searchPurchaseOrder" class="form-control w-300px">
+                    <input type="text" wire:model="searchPurchaseOrder" class="form-control w-200px">
                     <!--end::Select-->
                 </div>
 
@@ -65,7 +90,90 @@
         <!--end::Card body-->
     </div>
 
-    @if ($purchaseOrder)
+    @if ($purchaseOrders->count()>0)
+    <div class="card mb-5 mb-xl-10">
+        @include('common.validation')
+        <!--begin::Card header-->
+        <div class="card-header">
+            
+            <!--begin::Heading-->
+         
+            <!--end::Heading-->
+            <!--begin::Toolbar-->
+            
+           
+           
+            <!--end::Toolbar-->
+        </div>
+    
+        
+      
+        <!--end::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body p-0">
+            <!--begin::Table wrapper-->
+            <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                    <!--begin::Thead-->
+                    <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
+                        <tr>
+                            <th class="min-w-150px">Date of Purchase</th>
+                            <th class="min-w-130px">Invoice Number</th>
+                            <th class="min-w-130px">Product Name</th>
+                            <th class="min-w-130px">Supplier</th>
+                            <th class="min-w-130px">Delivery Date</th>
+                            <th class="min-w-130px">Rate</th>
+                            <th class="min-w-130px">Quantity</th>
+                            <th class="min-w-130px">Amount</th>
+                            <th class="min-w-130px">Actions</th>
+                        </tr>
+                    </thead>
+                    <!--end::Thead-->
+                    <!--begin::Tbody-->
+                    <tbody class="fw-6 fw-bold text-gray-600">
+                      
+                        @foreach ($purchaseOrders as $purchaseOrder)
+                        <tr>
+                            <td>{{$purchaseOrder->date->format('F d,y')??''}}</td>
+                            <td>{{$purchaseOrder->invoicenumber??''}}</td>
+                            <td>{{$purchaseOrder->product->name??''}}</td>
+                            <td>{{$purchaseOrder->supplier->name??''}}</td>
+                            <td>{{$purchaseOrder->deliverydate->format('F d,y')??''}}</td>
+                            <td>{{$purchaseOrder->rate??''}}</td>
+                            <td>{{$purchaseOrder->quantity??''}}</td>
+                            <td>{{$purchaseOrder->amount??''}}</td>
+                            <td><a href="javascript:;" class="btn btn-primary" wire:click="$set('selectedId', {{$purchaseOrder->id}})">Detail</a></td>
+                        </tr>    
+                        @endforeach
+                     
+                     
+                       
+                         
+              
+                           
+                      
+                        
+                        
+                       
+                       
+                      
+                    </tbody>
+                    <!--end::Tbody-->
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Table wrapper-->
+        </div>
+    
+      
+    
+    
+    
+        
+        <!--end::Card body-->
+    </div>
+    @if ($currentPurchaseOrder)
     <div class="card">
         <!--begin::Body-->
         <div class="card-body p-lg-20">
@@ -90,7 +198,7 @@
                         <!--begin::Wrapper-->
                         <div class="m-0">
                             <!--begin::Label-->
-                            <div class="fw-bold fs-3 text-gray-800 mb-8">Invoice #{{$purchaseOrder->invoicenumber??''}}</div>
+                            <div class="fw-bold fs-3 text-gray-800 mb-8">Invoice #{{$currentPurchaseOrder->invoicenumber??''}}</div>
                             <!--end::Label-->
                             <!--begin::Row-->
                             <div class="row g-5 mb-11">
@@ -100,7 +208,7 @@
                                     <div class="fw-semibold fs-7 text-gray-600 mb-1">Date Of Purchase:</div>
                                     <!--end::Label-->
                                     <!--end::Col-->
-                                    <div class="fw-bold fs-6 text-gray-800">{{$purchaseOrder->date->format('F d,y')??''}}</div>
+                                    <div class="fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->date->format('F d,y')??''}}</div>
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Col-->
@@ -111,9 +219,9 @@
                                     <!--end::Label-->
                                     <!--end::Info-->
                                     <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
-                                        <span class="pe-2">{{$purchaseOrder->deliverydate->format('F d,y')??''}}</span>
+                                        <span class="pe-2">{{$currentPurchaseOrder->deliverydate->format('F d,y')??''}}</span>
                                         <span class="fs-7 text-danger d-flex align-items-center">
-                                        <span class="bullet bullet-dot bg-danger me-2"></span>Due In {{\Carbon\Carbon::now()>$purchaseOrder->deliverydate?'-' : ''}} {{\Carbon\Carbon::now()->diffInDays($purchaseOrder->deliverydate)}} Days</span>
+                                        <span class="bullet bullet-dot bg-danger me-2"></span>Due In {{\Carbon\Carbon::now()>$currentPurchaseOrder->deliverydate?'-' : ''}} {{\Carbon\Carbon::now()->diffInDays($currentPurchaseOrder->deliverydate)}} Days</span>
                                     </div>
                                     <!--end::Info-->
                                 </div>
@@ -142,10 +250,10 @@
                                     <div class="fw-semibold fs-7 text-gray-600 mb-1">Supplier Name:</div>
                                     <!--end::Label-->
                                     <!--end::Text-->
-                                    <div class="fw-bold fs-6 text-gray-800">{{$purchaseOrder->supplier->name??''}}</div>
+                                    <div class="fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->supplier->name??''}}</div>
                                     <!--end::Text-->
                                     <!--end::Description-->
-                                    <div class="fw-semibold fs-7 text-gray-600">{{$purchaseOrder->supplier->address??''}}
+                                    <div class="fw-semibold fs-7 text-gray-600">{{$currentPurchaseOrder->supplier->address??''}}
                                     <br /></div>
                                     <!--end::Description-->
                                 </div>
@@ -170,12 +278,12 @@
                                         <tbody>
                                             <tr class="fw-bold text-gray-700 fs-5 text-end">
                                                 <td class="d-flex align-items-center pt-6">
-                                                <i class="fa fa-genderless text-success fs-2 me-2"></i>{{$purchaseOrder->product->name??''}}</td>
-                                                <td class="pt-6">{{$purchaseOrder->product->unit??''}}</td>
-                                                <td class="pt-6">{{$purchaseOrder->rate??''}}</td>
-                                                <td class="pt-6">{{$purchaseOrder->quantity??''}}</td>
-                                                <td class="pt-6">{{$purchaseOrder->goodsReceived->sum('amountreceived')??''}}</td>
-                                                <td class="pt-6 text-dark fw-bolder">{{$purchaseOrder->amount??''}}</td>
+                                                <i class="fa fa-genderless text-success fs-2 me-2"></i>{{$currentPurchaseOrder->product->name??''}}</td>
+                                                <td class="pt-6">{{$currentPurchaseOrder->product->unit??''}}</td>
+                                                <td class="pt-6">{{$currentPurchaseOrder->rate??''}}</td>
+                                                <td class="pt-6">{{$currentPurchaseOrder->quantity??''}}</td>
+                                                <td class="pt-6">{{$currentPurchaseOrder->goodsReceived->sum('amountreceived')??''}}</td>
+                                                <td class="pt-6 text-dark fw-bolder">{{$currentPurchaseOrder->amount??''}}</td>
 
                                             </tr>
                                         
@@ -193,7 +301,7 @@
                                             <div class="fw-semibold pe-10 text-gray-600 fs-7">Amount:</div>
                                             <!--end::Accountname-->
                                             <!--begin::Label-->
-                                            <div class="text-end fw-bold fs-6 text-gray-800">{{$purchaseOrder->amount??''}}</div>
+                                            <div class="text-end fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->amount??''}}</div>
                                             <!--end::Label-->
                                         </div>
                                         <!--end::Item-->
@@ -203,7 +311,7 @@
                                             <div class="fw-semibold pe-10 text-gray-600 fs-7">Due Amount:</div>
                                             <!--end::Accountname-->
                                             <!--begin::Label-->
-                                            <div class="text-end fw-bold fs-6 text-gray-800">{{(($purchaseOrder->quantity??0)-($purchaseOrder->goodsReceived->sum('amountreceived')??0))*($purchaseOrder->rate??0)}}</div>
+                                            <div class="text-end fw-bold fs-6 text-gray-800">{{(($currentPurchaseOrder->quantity??0)-($currentPurchaseOrder->goodsReceived->sum('amountreceived')??0))*($currentPurchaseOrder->rate??0)}}</div>
                                             <!--end::Label-->
                                         </div>
                                         <!--end::Item-->
@@ -292,5 +400,79 @@
         </div>
         <!--end::Body-->
     </div>
+    <div class="card mb-5 mb-xl-10" style="margin-top: 20px;">
+       
+        <!--begin::Card header-->
+        <div class="card-header">
+            
+            <!--begin::Heading-->
+         
+            <!--end::Heading-->
+            <!--begin::Toolbar-->
+            <div class="card-title">
+                <h3>Received Quantity History</h3>
+            </div>
+
+           
+            <!--end::Toolbar-->
+        </div>
+    
+        
+      
+        <!--end::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body p-0">
+            <!--begin::Table wrapper-->
+            <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                    <!--begin::Thead-->
+                    <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
+                        <tr>
+                            <th class="min-w-150px">Received Date</th>
+                            <th class="min-w-130px">Received Amount</th>
+                          
+                        </tr>
+                    </thead>
+                    <!--end::Thead-->
+                    <!--begin::Tbody-->
+                    <tbody class="fw-6 fw-bold text-gray-600">
+                      
+                        @foreach ($currentPurchaseOrder->goodsReceived as $goodsReceived)
+                        <tr>
+                            <td>{{$goodsReceived->receiveddate->format('F d,y')??''}}</td>
+                            <td>{{$goodsReceived->amountreceived??''}}</td>
+                          
+                        </tr>   
+                        @endforeach
+                     
+                     
+                       
+                         
+              
+                           
+                      
+                        
+                        
+                       
+                       
+                      
+                    </tbody>
+                    <!--end::Tbody-->
+                </table>
+                <!--end::Table-->
+            </div>
+            <!--end::Table wrapper-->
+        </div>
+    
+      
+    
+    
+    
+        
+        <!--end::Card body-->
+    </div>
+    @endif
+    
     @endif
 </div>
