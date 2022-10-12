@@ -118,15 +118,18 @@
                     <!--begin::Thead-->
                     <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
                         <tr>
-                            <th class="min-w-150px">Date of Purchase</th>
-                            <th class="min-w-130px">Invoice Number</th>
-                            <th class="min-w-130px">Product Name</th>
-                            <th class="min-w-130px">Supplier</th>
-                            <th class="min-w-130px">Delivery Date</th>
-                            <th class="min-w-130px">Rate</th>
-                            <th class="min-w-130px">Quantity</th>
-                            <th class="min-w-130px">Amount</th>
-                            <th class="min-w-130px">Actions</th>
+                            <th class="min-w-150px">Date of PO</th>
+                            <th class="min-w-150px">PO Number</th>
+                            <th class="min-w-150px">Supplier</th>
+                            <th class="min-w-150px">Product Name</th>
+                            <th class="min-w-150px">Quantity</th>
+                            <th class="min-w-150px">Unit</th>
+                            <th class="min-w-150px">Rate</th>
+                            <th class="min-w-150px">Total PO Amount</th>
+                            <th class="min-w-150px">Received Amount Quantity</th>
+                            <th class="min-w-150px">Received Units</th>
+                            <th class="min-w-150px">Balance</th>
+                           
                         </tr>
                     </thead>
                     <!--end::Thead-->
@@ -137,13 +140,15 @@
                         <tr>
                             <td>{{$purchaseOrder->date->format('F d,y')??''}}</td>
                             <td>{{$purchaseOrder->invoicenumber??''}}</td>
-                            <td>{{$purchaseOrder->product->name??''}}</td>
                             <td>{{$purchaseOrder->supplier->name??''}}</td>
-                            <td>{{$purchaseOrder->deliverydate->format('F d,y')??''}}</td>
-                            <td>{{$purchaseOrder->rate??''}}</td>
+                            <td>{{$purchaseOrder->product->name??''}}</td>
                             <td>{{$purchaseOrder->quantity??''}}</td>
+                            <td>{{$purchaseOrder->product->unit??''}}</td>
+                            <td>{{$purchaseOrder->rate??''}}</td>
                             <td>{{$purchaseOrder->amount??''}}</td>
-                            <td><a href="javascript:;" class="btn btn-primary" wire:click="$set('selectedId', {{$purchaseOrder->id}})">Detail</a></td>
+                            <td>{{$purchaseOrder->goodsReceived->sum('amountreceived')*($purchaseOrder->rate)}}</td>
+                            <td>{{$purchaseOrder->goodsReceived->sum('amountreceived')??0}}</td>
+                            <td>{{($purchaseOrder->amount)-($purchaseOrder->goodsReceived->sum('amountreceived')*$purchaseOrder->rate)}}</td>
                         </tr>    
                         @endforeach
                      
@@ -173,306 +178,111 @@
         
         <!--end::Card body-->
     </div>
-    @if ($currentPurchaseOrder)
-    <div class="card">
-        <!--begin::Body-->
-        <div class="card-body p-lg-20">
-            <!--begin::Layout-->
-            <div class="d-flex flex-column flex-xl-row">
-                <!--begin::Content-->
-                <div class="flex-lg-row-fluid me-xl-18 mb-10 mb-xl-0">
-                    <!--begin::Invoice 2 content-->
-                    <div class="mt-n1">
-                        <!--begin::Top-->
-                        <div class="d-flex flex-stack pb-10">
-                            <!--begin::Logo-->
-                            <a href="#">
-                                <img alt="Logo" src="/metronic8/demo1/assets/media/svg/brand-logos/code-lab.svg" />
-                            </a>
-                            <!--end::Logo-->
-                            <!--begin::Action-->
-                         
-                            <!--end::Action-->
-                        </div>
-                        <!--end::Top-->
-                        <!--begin::Wrapper-->
-                        <div class="m-0">
-                            <!--begin::Label-->
-                            <div class="fw-bold fs-3 text-gray-800 mb-8">Invoice #{{$currentPurchaseOrder->invoicenumber??''}}</div>
-                            <!--end::Label-->
-                            <!--begin::Row-->
-                            <div class="row g-5 mb-11">
-                                <!--end::Col-->
-                                <div class="col-sm-6">
-                                    <!--end::Label-->
-                                    <div class="fw-semibold fs-7 text-gray-600 mb-1">Date Of Purchase:</div>
-                                    <!--end::Label-->
-                                    <!--end::Col-->
-                                    <div class="fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->date->format('F d,y')??''}}</div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Col-->
-                                <!--end::Col-->
-                                <div class="col-sm-6">
-                                    <!--end::Label-->
-                                    <div class="fw-semibold fs-7 text-gray-600 mb-1">Delivery Date:</div>
-                                    <!--end::Label-->
-                                    <!--end::Info-->
-                                    <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center flex-wrap">
-                                        <span class="pe-2">{{$currentPurchaseOrder->deliverydate->format('F d,y')??''}}</span>
-                                        <span class="fs-7 text-danger d-flex align-items-center">
-                                        <span class="bullet bullet-dot bg-danger me-2"></span>Due In {{\Carbon\Carbon::now()>$currentPurchaseOrder->deliverydate?'-' : ''}} {{\Carbon\Carbon::now()->diffInDays($currentPurchaseOrder->deliverydate)}} Days</span>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Col-->
-                            </div>
-                            <!--end::Row-->
-                            <!--begin::Row-->
-                            <div class="row g-5 mb-12">
-                                <!--end::Col-->
-                                <div class="col-sm-6">
-                                    <!--end::Label-->
-                                    <div class="fw-semibold fs-7 text-gray-600 mb-1">Issue For:</div>
-                                    <!--end::Label-->
-                                    <!--end::Text-->
-                                    <div class="fw-bold fs-6 text-gray-800">Company Name</div>
-                                    <!--end::Text-->
-                                    <!--end::Description-->
-                                    <div class="fw-semibold fs-7 text-gray-600">8692 Wild Rose Drive 
-                                    <br />Livonia, MI 48150</div>
-                                    <!--end::Description-->
-                                </div>
-                                <!--end::Col-->
-                                <!--end::Col-->
-                                <div class="col-sm-6">
-                                    <!--end::Label-->
-                                    <div class="fw-semibold fs-7 text-gray-600 mb-1">Supplier Name:</div>
-                                    <!--end::Label-->
-                                    <!--end::Text-->
-                                    <div class="fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->supplier->name??''}}</div>
-                                    <!--end::Text-->
-                                    <!--end::Description-->
-                                    <div class="fw-semibold fs-7 text-gray-600">{{$currentPurchaseOrder->supplier->address??''}}
-                                    <br /></div>
-                                    <!--end::Description-->
-                                </div>
-                                <!--end::Col-->
-                            </div>
-                            <!--end::Row-->
-                            <!--begin::Content-->
-                            <div class="flex-grow-1">
-                                <!--begin::Table-->
-                                <div class="table-responsive border-bottom mb-9">
-                                    <table class="table mb-3">
-                                        <thead>
-                                            <tr class="border-bottom fs-6 fw-bold text-muted">
-                                                <th class="min-w-175px pb-2">Product Name</th>
-                                                <th class="min-w-80px text-end pb-2">Unit</th>
-                                                <th class="min-w-80px text-end pb-2">Rate</th>
-                                                <th class="min-w-70px text-end pb-2">Quantity</th>
-                                                <th class="min-w-70px text-end pb-2">Received Quantity</th>
-                                                <th class="min-w-100px text-end pb-2">Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="fw-bold text-gray-700 fs-5 text-end">
-                                                <td class="d-flex align-items-center pt-6">
-                                                <i class="fa fa-genderless text-success fs-2 me-2"></i>{{$currentPurchaseOrder->product->name??''}}</td>
-                                                <td class="pt-6">{{$currentPurchaseOrder->product->unit??''}}</td>
-                                                <td class="pt-6">{{$currentPurchaseOrder->rate??''}}</td>
-                                                <td class="pt-6">{{$currentPurchaseOrder->quantity??''}}</td>
-                                                <td class="pt-6">{{$currentPurchaseOrder->goodsReceived->sum('amountreceived')??''}}</td>
-                                                <td class="pt-6 text-dark fw-bolder">{{$currentPurchaseOrder->amount??''}}</td>
-
-                                            </tr>
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--end::Table-->
-                                <!--begin::Container-->
-                                <div class="d-flex justify-content-end">
-                                    <!--begin::Section-->
-                                    <div class="mw-300px">
-                                        <!--begin::Item-->
-                                        <div class="d-flex flex-stack mb-3">
-                                            <!--begin::Accountname-->
-                                            <div class="fw-semibold pe-10 text-gray-600 fs-7">Amount:</div>
-                                            <!--end::Accountname-->
-                                            <!--begin::Label-->
-                                            <div class="text-end fw-bold fs-6 text-gray-800">{{$currentPurchaseOrder->amount??''}}</div>
-                                            <!--end::Label-->
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                        <div class="d-flex flex-stack mb-3">
-                                            <!--begin::Accountname-->
-                                            <div class="fw-semibold pe-10 text-gray-600 fs-7">Due Amount:</div>
-                                            <!--end::Accountname-->
-                                            <!--begin::Label-->
-                                            <div class="text-end fw-bold fs-6 text-gray-800">{{(($currentPurchaseOrder->quantity??0)-($currentPurchaseOrder->goodsReceived->sum('amountreceived')??0))*($currentPurchaseOrder->rate??0)}}</div>
-                                            <!--end::Label-->
-                                        </div>
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                      
-                                        <!--end::Item-->
-                                        <!--begin::Item-->
-                                      
-                                        <!--end::Item-->
-                                    </div>
-                                    <!--end::Section-->
-                                </div>
-                                <!--end::Container-->
-                            </div>
-                            <!--end::Content-->
-                        </div>
-                        <!--end::Wrapper-->
-                    </div>
-                    <!--end::Invoice 2 content-->
-                </div>
-                <!--end::Content-->
-                <!--begin::Sidebar-->
-                <div class="m-0">
-                    <!--begin::Invoice 2 sidebar-->
-                    <div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten">
-                        <!--begin::Labels-->
-                        <div class="mb-8">
-                            <span class="badge badge-light-success me-2">Approved</span>
-                            <span class="badge badge-light-warning">Pending Payment</span>
-                        </div>
-                        <!--end::Labels-->
-                        <!--begin::Title-->
-                        <h6 class="mb-8 fw-bolder text-gray-600 text-hover-primary">PAYMENT DETAILS</h6>
-                        <!--end::Title-->
-                        <!--begin::Item-->
-                        <div class="mb-6">
-                            <div class="fw-semibold text-gray-600 fs-7">Paypal:</div>
-                            <div class="fw-bold text-gray-800 fs-6">codelabpay@codelab.co</div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="mb-6">
-                            <div class="fw-semibold text-gray-600 fs-7">Account:</div>
-                            <div class="fw-bold text-gray-800 fs-6">Nl24IBAN34553477847370033 
-                            <br />AMB NLANBZTC</div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="mb-15">
-                            <div class="fw-semibold text-gray-600 fs-7">Payment Term:</div>
-                            <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center">14 days 
-                            <span class="fs-7 text-danger d-flex align-items-center">
-                            <span class="bullet bullet-dot bg-danger mx-2"></span>Due in 7 days</span></div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Title-->
-                        <h6 class="mb-8 fw-bolder text-gray-600 text-hover-primary">PROJECT OVERVIEW</h6>
-                        <!--end::Title-->
-                        <!--begin::Item-->
-                        <div class="mb-6">
-                            <div class="fw-semibold text-gray-600 fs-7">Project Name</div>
-                            <div class="fw-bold fs-6 text-gray-800">SaaS App Quickstarter 
-                            <a href="#" class="link-primary ps-1">View Project</a></div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="mb-6">
-                            <div class="fw-semibold text-gray-600 fs-7">Completed By:</div>
-                            <div class="fw-bold text-gray-800 fs-6">Mr. Dewonte Paul</div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="m-0">
-                            <div class="fw-semibold text-gray-600 fs-7">Time Spent:</div>
-                            <div class="fw-bold fs-6 text-gray-800 d-flex align-items-center">230 Hours 
-                            <span class="fs-7 text-success d-flex align-items-center">
-                            <span class="bullet bullet-dot bg-success mx-2"></span>35$/h Rate</span></div>
-                        </div>
-                        <!--end::Item-->
-                    </div>
-                    <!--end::Invoice 2 sidebar-->
-                </div>
-                <!--end::Sidebar-->
-            </div>
-            <!--end::Layout-->
-        </div>
-        <!--end::Body-->
-    </div>
-    <div class="card mb-5 mb-xl-10" style="margin-top: 20px;">
-       
-        <!--begin::Card header-->
-        <div class="card-header">
-            
-            <!--begin::Heading-->
-         
-            <!--end::Heading-->
+    <div class="card card-flush mb-xxl-10">
+        <!--begin::Header-->
+        <div class="card-header pt-5">
+            <!--begin::Title-->
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bolder text-dark">Total Calculations</span>
+                <span class="text-gray-400 pt-2 fw-bold fs-6"></span>
+            </h3>
+            <!--end::Title-->
             <!--begin::Toolbar-->
-            <div class="card-title">
-                <h3>Received Quantity History</h3>
-            </div>
-
            
             <!--end::Toolbar-->
         </div>
-    
-        
-      
-        <!--end::Card header-->
-        <!--begin::Card body-->
-        <div class="card-body p-0">
-            <!--begin::Table wrapper-->
-            <div class="table-responsive">
-                <!--begin::Table-->
-                <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9">
-                    <!--begin::Thead-->
-                    <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
-                        <tr>
-                            <th class="min-w-150px">Received Date</th>
-                            <th class="min-w-130px">Received Amount</th>
-                          
-                        </tr>
-                    </thead>
-                    <!--end::Thead-->
-                    <!--begin::Tbody-->
-                    <tbody class="fw-6 fw-bold text-gray-600">
-                      
-                        @foreach ($currentPurchaseOrder->goodsReceived as $goodsReceived)
-                        <tr>
-                            <td>{{$goodsReceived->receiveddate->format('F d,y')??''}}</td>
-                            <td>{{$goodsReceived->amountreceived??''}}</td>
-                          
-                        </tr>   
-                        @endforeach
-                     
-                     
-                       
-                         
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body">
+            <!--begin::Nav-->
+          
+            <!--end::Nav-->
+            <!--begin::Tab Content-->
+            <div class="tab-content">
+                <!--begin::Tap pane-->
+                <div class="tab-pane fade show active" id="kt_stats_widget_1_tab_1">
+                    <!--begin::Table container-->
+                    <div class="table-responsive">
+                        <!--begin::Table-->
+                        <table class="table align-middle gs-0 gy-4 my-0">
+                            <!--begin::Table head-->
+                            <thead>
+                                <tr class="fs-7 fw-bolder text-gray-500">
+                                    <th class="p-0 min-w-150px d-block pt-3"></th>
+                                    <th class="text-end min-w-140px pt-3"></th>
+                                  
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span  class="text-gray-800 fw-bolder text-hover-primary mb-1 fs-6">Total Purchase Orders</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="badge badge-light-success fs-7 fw-bolder">{{$purchaseOrders->count()}}</span>
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span  class="text-gray-800 fw-bolder text-hover-primary mb-1 fs-6">Total POs Amount</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="badge badge-light-success fs-7 fw-bolder">{{$purchaseOrders->sum('amount')}}</span>
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span  class="text-gray-800 fw-bolder text-hover-primary mb-1 fs-6">Total POs Received Amount Quantity</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="badge badge-light-success fs-7 fw-bolder">{{$totalReceivedAmounQuantity}}</span>
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span  class="text-gray-800 fw-bolder text-hover-primary mb-1 fs-6">Total Received Units</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="badge badge-light-success fs-7 fw-bolder">{{$totalReceivedUnits}}</span>
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span  class="text-gray-800 fw-bolder text-hover-primary mb-1 fs-6">Total Balance</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="badge badge-light-success fs-7 fw-bolder">{{$totalBalance}}</span>
+                                    </td>
+                                   
+                                </tr>
+                               
+                              
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+                    <!--end::Table container-->
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+               
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
+             
+                </div>
+                <!--end::Tap pane-->
+                <!--begin::Tap pane-->
               
-                           
-                      
-                        
-                        
-                       
-                       
-                      
-                    </tbody>
-                    <!--end::Tbody-->
-                </table>
-                <!--end::Table-->
+                <!--end::Tap pane-->
             </div>
-            <!--end::Table wrapper-->
+            <!--end::Tab Content-->
         </div>
-    
-      
-    
-    
-    
-        
-        <!--end::Card body-->
-    </div>
-    @endif
     
     @endif
 </div>
