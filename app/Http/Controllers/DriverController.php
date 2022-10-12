@@ -98,20 +98,9 @@ class DriverController extends AdminController
               return view('driver-setting-page');
               break;
             case "2":
-                return view('user-management-roles-permission-page',[
-
-                ]);
-                break;
-            case "3":
-
-                    return view('user-management-employees-permission-page',[
- 
-                    ]);
-                    break;
-                    case "4":
-
-                        return view('expense-report-page');
-                        break;
+              return view('driver-listing-page');
+              break;
+          
             default:
               return back();
           }

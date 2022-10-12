@@ -169,6 +169,15 @@
                                 </a>
                             </div> 
                             @endcan
+
+                            <div class="menu-item">
+                                <a class="menu-link" href="{{route('app.vehicle.show',[1])}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Vehicle Listing</span>
+                                </a>
+                            </div> 
                         
                     </div>
                 </div>
@@ -245,6 +254,15 @@
                                         </a>
                                     </div> 
                                     @endcan
+
+                                    <div class="menu-item">
+                                        <a class="menu-link" href="{{route('app.driver.show',[2])}}">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Driver Listing</span>
+                                        </a>
+                                    </div> 
                              
                             </div>
                         </div>
