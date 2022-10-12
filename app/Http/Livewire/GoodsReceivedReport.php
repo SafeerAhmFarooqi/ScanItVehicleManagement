@@ -33,9 +33,20 @@ class GoodsReceivedReport extends Component
             return $query->orWhereBetween('date',[$this->selectedStartDate,$this->selectedEndDate]);
         })
         ->get();
+        $totalReceivedAmounQuantity=0;
+        $totalReceivedUnits=0;
+        $totalBalance=0;
+        foreach ($purchaseOrders as $purchaseOrder) {
+                $totalReceivedAmounQuantity+=$purchaseOrder->goodsReceived->sum('amountreceived')*$purchaseOrder->rate;
+                $totalReceivedUnits+=$purchaseOrder->goodsReceived->sum('amountreceived');
+                $totalBalance+=($purchaseOrder->amount)-($purchaseOrder->goodsReceived->sum('amountreceived')*$purchaseOrder->rate);
+        }
         return view('livewire.goods-received-report',[
             'invoices' => PurchaseOrder::all(),
             'purchaseOrders' => $purchaseOrders,
+            'totalReceivedAmounQuantity' => $totalReceivedAmounQuantity,
+            'totalReceivedUnits' => $totalReceivedUnits,
+            'totalBalance' => $totalBalance,
         ]);
     }
 }
