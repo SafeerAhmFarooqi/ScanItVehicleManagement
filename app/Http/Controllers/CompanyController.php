@@ -75,7 +75,15 @@ class CompanyController extends AdminController
      */
     public function show($id)
     {
-        //
+        switch ($id) {
+            case "1":
+              return view('company-list-page');
+              break;
+           
+                  
+            default:
+              return back();
+          }
     }
 
     /**
