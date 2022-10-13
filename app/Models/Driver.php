@@ -13,7 +13,7 @@ class Driver extends Model
 
     protected $dates = ['deleted_at','startTime','endTime'];
 
-    protected $fillable = ['rentalcompany_id', 'name','address','phone','license','salary','startTime','endTime','deleted_at'];
+    protected $fillable = ['rentalcompany_id','vehicle_id', 'name','address','phone','license','salary','startTime','endTime','deleted_at'];
 
     public function advancePayment()
     {
