@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('rentalcompany_id')->nullable();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->string('name')->nullable();
             $table->string('license')->nullable();
             $table->string('address')->nullable();

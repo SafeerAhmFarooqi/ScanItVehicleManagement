@@ -1,5 +1,5 @@
 @if(session()->has('success'))
-<div class="alert alert-success">
+<div class="alert alert-success" id="custom-message">
     {{ session()->get('success') }}
 </div>
 @endif
