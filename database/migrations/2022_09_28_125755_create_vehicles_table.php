@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rentalcompany_id')->nullable();
             $table->string('name')->nullable();
             $table->string('enginenumber')->nullable();
+            $table->string('chassisnumber')->nullable();
             $table->string('model')->nullable();
             $table->string('cc')->nullable();
             $table->string('licensenumber')->nullable();

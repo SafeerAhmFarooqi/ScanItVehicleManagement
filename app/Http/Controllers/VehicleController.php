@@ -47,7 +47,8 @@ class VehicleController extends AdminController
             'model' => ['required', 'string', 'max:100'],
             'cc' => ['required', 'string', 'max:100'],
             'license' => ['required', 'string', 'max:100'],
-            'warranty' => ['required', 'date', 'max:100'],          
+            'warranty' => ['required', 'date', 'max:100'], 
+            'chassisnumber' => ['required', 'string', 'max:100'], 
         ],[
             //Validation Messages
             'required'=>':attribute Is Required',
@@ -60,12 +61,14 @@ class VehicleController extends AdminController
             'cc' => 'Engine CC',
             'license' => 'License',
             'warranty' => 'Warranty Valid Till Date',     
+            'chassisnumber' => 'Chassis',
         ]);
 
         $vehicle=Vehicle::create([
             'rentalcompany_id' =>  $request->rentalcompany,
             'name' =>  $request->name,
             'enginenumber' =>  $request->enginenumber,
+            'chassisnumber' =>  $request->chassisnumber,
             'model' =>  $request->model,
             'cc' =>  $request->cc,
             'licensenumber' =>  $request->license,

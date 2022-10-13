@@ -13,7 +13,7 @@ class Vehicle extends Model
 
     protected $dates = ['deleted_at','warrantyperiod'];
 
-    protected $fillable = [ 'rentalcompany_id','name','enginenumber','model','cc','licensenumber','warrantyperiod','deleted_at'];
+    protected $fillable = [ 'rentalcompany_id','name','enginenumber','chassisnumber','model','cc','licensenumber','warrantyperiod','deleted_at'];
 
     
     public function rentalCompany()
