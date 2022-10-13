@@ -96,7 +96,15 @@ class RentalCompanyController extends AdminController
      */
     public function show($id)
     {
-        //
+        switch ($id) {
+            case "1":
+              return view('rental-company-list-page');
+              break;
+           
+                  
+            default:
+              return back();
+          }
     }
 
     /**
