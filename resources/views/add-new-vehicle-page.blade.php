@@ -135,6 +135,20 @@
                                 </div>
                                 <div class="row mb-6">
                                     <!--begin::Label-->
+                                     <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Chassis Number</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                                     <!--begin::Col-->
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Chassis Number" name="chassisnumber" value="{{old('chassisnumber')}}"/>
+                                        @error('chassisnumber')
+                                        <span class="alert alert-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                    </div><!--end::Col-->
+                                </div>
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
                                      <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Model</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
                                      <!--begin::Col-->
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
