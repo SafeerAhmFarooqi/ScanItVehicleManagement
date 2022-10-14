@@ -8,6 +8,9 @@ use App\Models\Driver;
 use Illuminate\Support\Facades\Session;
 use App\Models\RentalCompany;
 use App\Models\Vehicle;
+use App\Models\MonthlyDriverSalary;
+use Illuminate\Support\Carbon;
+
 
 class AddNewDriver extends Component
 {
@@ -65,6 +68,13 @@ class AddNewDriver extends Component
             'salary' => $this->selectedSalary,
             'startTime' => $this->selectedStartTime,
             'endTime' =>  $this->selectedEndTime,        
+        ]);
+
+        MonthlyDriverSalary::create([
+            'rentalcompany_id' =>  $this->selectedRentalCompany,
+            'driver_id' => $driver->id,
+            'amount' => $this->selectedSalary,
+            'month' => Carbon::now(),
         ]);
 
         if($driver) {
