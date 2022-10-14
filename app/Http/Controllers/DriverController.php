@@ -100,6 +100,9 @@ class DriverController extends AdminController
             case "2":
               return view('driver-listing-page');
               break;
+            case "3":
+              return view('driver-report-page');
+              break;
           
             default:
               return back();
