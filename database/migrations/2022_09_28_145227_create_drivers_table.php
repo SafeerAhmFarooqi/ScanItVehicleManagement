@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->string('name')->nullable();
             $table->string('license')->nullable();
+            $table->string('nldnumber')->nullable();
             $table->string('address')->nullable();
             $table->string('salary')->nullable();
             $table->string('phone')->nullable();

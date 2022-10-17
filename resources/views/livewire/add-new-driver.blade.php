@@ -3,16 +3,13 @@
     <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
         @include('common.validation')
         <!--begin::Form-->
-        <form class="form w-100" wire:submit.prevent="submit">
+        <form class="form w-100" wire:submit.prevent="submit" enctype="multipart/form-data">
         
             <!--begin::Heading-->
             <div class="mb-10 text-center">
                 <!--begin::Title-->
                 <h1 class="text-dark mb-3">Add New Driver</h1>
-                <!--end::Title-->
-                <!--begin::Link-->
-             
-                <!--end::Link-->
+              
             </div>
             <!--end::Heading-->
             <!--begin::Action-->
@@ -106,6 +103,20 @@
             </div>
             <div class="row mb-6">
                 <!--begin::Label-->
+                 <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">NLD Number</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
+                 <!--begin::Col-->
+                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                    <input class="form-control form-control-lg form-control-solid" type="text" placeholder="NLD Number" wire:model="selectedNldNumber"/>
+                    @error('selectedNldNumber')
+                    <span class="alert alert-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div><!--end::Col-->
+            </div>
+            <div class="row mb-6">
+                <!--begin::Label-->
                  <label class="col-lg-4 col-form-label fw-semibold fs-6"><span class="required">Address</span> <i aria-label="Country of origination" class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" data-kt-initialized="1"></i></label> <!--end::Label-->
                  <!--begin::Col-->
                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
@@ -173,6 +184,21 @@
                     @enderror
                     <div class="fv-plugins-message-container invalid-feedback"></div>
                 </div><!--end::Col-->
+            </div>
+            <div class="row mb-6">
+                <!--begin::Label-->
+                <label class="col-lg-4 col-form-label required fw-bold fs-6">Photo</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8 fv-row">
+                    <input type="file" wire:model="selectedImage" class="form-control form-control-lg form-control-solid" accept=".png, .jpg, .jpeg, .bmp"/> 
+                    @error('selectedImage')
+                    <span class="alert alert-danger" role="alert">
+                        <strong style="font-size: 10px;">{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!--end::Col-->
             </div>
           
        
