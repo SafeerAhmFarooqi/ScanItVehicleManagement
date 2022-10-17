@@ -6,34 +6,43 @@ use Livewire\Component;
 
 use App\Models\Driver;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use App\Models\RentalCompany;
 use App\Models\Vehicle;
+use App\Models\DriverImages;
 use App\Models\MonthlyDriverSalary;
 use Illuminate\Support\Carbon;
+use Livewire\WithFileUploads;
 
 
 class AddNewDriver extends Component
 {
+    use WithFileUploads;
+
     public $selectedRentalCompany='';
     public $selectedName='';
     public $selectedVehicle='';
     public $selectedLicense='';
+    public $selectedNldNumber='';
     public $selectedAddress='';
     public $selectedPhoneNumber='';
     public $selectedSalary='';
     public $selectedStartTime='';
     public $selectedEndTime='';
+    public $selectedImage='';
 
     protected $validationAttributes = [
      'selectedRentalCompany' => 'Rental Company',
      'selectedName' => 'Name',
      'selectedVehicle' => 'Vehicle',
      'selectedLicense' => 'License',
+     'selectedNldNumber' => 'Nld Number',
      'selectedAddress' => 'Address',
      'selectedPhoneNumber' => 'Phone Number',
      'selectedSalary' => 'Salary',
      'selectedStartTime' => 'Start Time',
      'selectedEndTime' => 'End Time',
+     'selectedImage' => 'Driver Photo',
     ];
 
     protected $messages = [
@@ -47,11 +56,13 @@ class AddNewDriver extends Component
             'selectedName' => ['required', 'string'],
             'selectedVehicle' =>['required', 'string'],
             'selectedLicense' => ['required', 'string'],
+            'selectedNldNumber' => ['required', 'string'],
             'selectedAddress' => ['required', 'string'],
             'selectedPhoneNumber' => ['required', 'string'],
             'selectedSalary' => ['required', 'numeric'],
             'selectedStartTime' => ['required', 'date_format:H:i'],
             'selectedEndTime' => ['required', 'date_format:H:i'],
+            'selectedImage' => ['required','image','max:2024'],
         ];
     }
 
@@ -63,12 +74,22 @@ class AddNewDriver extends Component
             'vehicle_id' =>  $this->selectedVehicle,
             'name' =>  $this->selectedName,
             'license' =>   $this->selectedLicense,
+            'nldnumber' =>   $this->selectedNldNumber,
             'address'=>   $this->selectedAddress,
             'phone' =>   $this->selectedPhoneNumber,
             'salary' => $this->selectedSalary,
             'startTime' => $this->selectedStartTime,
             'endTime' =>  $this->selectedEndTime,        
         ]);
+
+        if ($this->selectedImage) {
+            $this->selectedImage->store('driver-images/'.$driver->id,'public');
+            $filePath = 'driver-images/'.$driver->id.'/'. $this->selectedImage->hashName();
+            DriverImages::create([
+                'driver_id' => $driver->id,
+                'path' => $filePath, 
+            ]);
+        }
 
         MonthlyDriverSalary::create([
             'rentalcompany_id' =>  $this->selectedRentalCompany,
@@ -99,6 +120,7 @@ class AddNewDriver extends Component
          $this->selectedName='';
          $this->selectedVehicle='';
          $this->selectedLicense='';
+         $this->selectedNldNumber='';
          $this->selectedAddress='';
          $this->selectedPhoneNumber='';
          $this->selectedSalary='';
