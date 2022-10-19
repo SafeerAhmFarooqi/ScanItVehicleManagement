@@ -21,6 +21,11 @@ class Driver extends Model
         return $this->hasOne(DriverAdvancePayment::class, 'driver_id');
     }
 
+    public function profilePic()
+    {
+        return $this->hasOne(DriverImages::class, 'driver_id');
+    }
+
     public function salaryRecords()
     {
         return $this->hasMany(DriverSalaryRecord::class, 'driver_id');
