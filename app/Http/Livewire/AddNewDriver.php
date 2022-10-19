@@ -13,6 +13,7 @@ use App\Models\DriverImages;
 use App\Models\MonthlyDriverSalary;
 use Illuminate\Support\Carbon;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 
 class AddNewDriver extends Component

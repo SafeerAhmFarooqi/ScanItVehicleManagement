@@ -103,6 +103,9 @@ class DriverController extends AdminController
             case "3":
               return view('driver-report-page');
               break;
+            case "4":
+                return view('driver-profile-page');
+                break;
           
             default:
               return back();
